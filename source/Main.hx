@@ -81,7 +81,7 @@ class Main extends Sprite
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 
-		var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
+		var ourSource:String = "assets/videos//dontDelete.webm";
 
 		#if web
 		var str1:String = "HTML CRAP";

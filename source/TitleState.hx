@@ -337,10 +337,13 @@ class TitleState extends MusicBeatState
 			switch (curBeat)
 			{
 				case 1:
-					createCoolText(['Graphex Engine by'], 45);
+					createCoolText(['This mod is by'], 45);
 				case 3:
+					addMoreText('WonderNope', 45);
+					addMoreText('Yamahearted', 45);
 					addMoreText('XaleTheCat', 45);
-					//addMoreText('PurpleSnake', 45); // This guy haven't done anything yet - Xale
+					addMoreText('NotGeorg', 45);
+					addMoreText('Samsa', 45);
 				case 4:
 					deleteCoolText();
 				case 5:
@@ -358,11 +361,11 @@ class TitleState extends MusicBeatState
 				case 12:
 					deleteCoolText();
 				case 13:
-					addMoreText('Friday');
+					addMoreText('Friday Night Funkin');
 				case 14:
-					addMoreText('Night');
+					addMoreText('vs WonderNope');
 				case 15:
-					addMoreText('Funkin');
+					addMoreText('yeah!');
 
 				case 16:
 					skipIntro();

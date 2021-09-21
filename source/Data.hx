@@ -6,10 +6,9 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
 
-// There must be all data about engine vars... There is only one at the moment -w-" - Xale
 class EngineData
 {
-	public static var modEngineVersion:String = 'b0.0.3.1';
+	public static var modEngineVersion:String = ' Custom Mod Build';
 }
 
 class ClientPrefs {
@@ -32,33 +31,31 @@ class ClientPrefs {
 	public static var hideTime:Bool = false;
 
 	public static var defaultKeys:Array<FlxKey> = [
-		A, LEFT,			//Note Left
-		S, DOWN,			//Note Down
-		W, UP,				//Note Up
-		D, RIGHT,			//Note Right
+		A, LEFT,			
+		S, DOWN,			
+		W, UP,				
+		D, RIGHT,			
 
-		A, LEFT,			//UI Left
-		S, DOWN,			//UI Down
-		W, UP,				//UI Up
-		D, RIGHT,			//UI Right
+		A, LEFT,			
+		S, DOWN,			
+		W, UP,			
+		D, RIGHT,			
 
-		R, NONE,			//Reset
-		SPACE, ENTER,		//Accept
-		BACKSPACE, ESCAPE,	//Back
-		ENTER, ESCAPE		//Pause
+		R, NONE,		
+		SPACE, ENTER,		
+		BACKSPACE, ESCAPE,
+		ENTER, ESCAPE		
 	];
-	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState)'s list
 	public static var keyBinds:Array<Dynamic> = [
-		//Key Bind, Name for ControlsSubState
 		[Control.NOTE_LEFT, 'Left'],
 		[Control.NOTE_DOWN, 'Down'],
 		[Control.NOTE_UP, 'Up'],
 		[Control.NOTE_RIGHT, 'Right'],
 
-		[Control.UI_LEFT, 'Left '],		//Added a space for not conflicting on ControlsSubState
-		[Control.UI_DOWN, 'Down '],		//Added a space for not conflicting on ControlsSubState
-		[Control.UI_UP, 'Up '],			//Added a space for not conflicting on ControlsSubState
-		[Control.UI_RIGHT, 'Right '],	//Added a space for not conflicting on ControlsSubState
+		[Control.UI_LEFT, 'Left '],		
+		[Control.UI_DOWN, 'Down '],		
+		[Control.UI_UP, 'Up '],			
+		[Control.UI_RIGHT, 'Right '],	
 
 		[Control.RESET, 'Reset'],
 		[Control.ACCEPT, 'Accept'],
@@ -87,7 +84,7 @@ class ClientPrefs {
 		FlxG.save.data.hideTime = hideTime;
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls', 'xale'); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
+		save.bind('controls', 'xale');
 		save.data.customControls = lastControls;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -195,67 +192,25 @@ class ClientPrefs {
 }
 
 class WeekData {
-	//Song names, used on both Story Mode and Freplay
-	//Go to FreeplayState.hx and add the head icons
-	//Go to StoryMenuState.hx and add the characters/backgrounds
 	public static var songsNames:Array<Dynamic> = [
-		['Tutorial'],							//Tutorial, this one isn't added to Freeplay, instead it is added from assets/preload/freeplaySonglist.txt
-		['Bopeebo', 'Fresh', 'Dad-Battle'],			//Week 1
-		['Spookeez', 'South', 'Monster'],			//Week 2
-		['Pico', 'Philly-Nice', 'Blammed'],			//Week 3
-		['Satin-Panties', 'High', 'Milf'],			//Week 4
-		['Cocoa', 'Eggnog', 'Winter-Horrorland'],	//Week 5
-		['Senpai', 'Roses', 'Thorns']				//Week 6
+		['Tutorial'],	
+		['Bopeebo', 'Fresh', 'Dad-Battle']
 	];
 
-	// Custom week number, used for your week's score not being overwritten by a new vanilla week when the game updates
-	// I'd recommend setting your week as -99 or something that new vanilla weeks will probably never ever use
-	// null = Don't change week number, it follows the vanilla weeks number order
 	public static var weekNumber:Array<Dynamic> = [
-		null,	//Tutorial
-		null,	//Week 1
-		null,	//Week 2
-		null,	//Week 3
-		null,	//Week 4
-		null,	//Week 5
-		null	//Week 6
+		null,
+		null
 	];
 
-	//Tells which assets directory should it load
-	//Reminder that you have to add the directories on Project.xml too or they won't be compiled!!!
-	//Just copy week6/week6_high mentions and rename it to whatever your week will be named
-	//It ain't that hard, i guess
-
-	//Oh yeah, quick reminder that files inside the folder that ends with _high are only loaded
-	//if you have the Low Quality option disabled on "Preferences"
 	public static var loadDirectory:Array<String> = [
-		'tutorial', //Tutorial loads "tutorial" folder on assets/
-		null,	//Week 1
-		null,	//Week 2
-		null,	//Week 3
-		null,	//Week 4
-		null,	//Week 5
-		null	//Week 6
+		'tutorial',
+		null
 	];
-
-	//The only use for this is to display a different name for the Week when you're on the score reset menu.
-	//Set it to null to make the Week be automatically called "Week (Number)"
-
-	//Edit: This now also messes with Discord Rich Presence, so it's kind of relevant.
 	public static var weekResetName:Array<String> = [
 		"Tutorial",
-		null,	//Week 1
-		null,	//Week 2
-		null,	//Week 3
-		null,	//Week 4
-		null,	//Week 5
-		null	//Week 6
+		null
 	];
 
-
-	//   FUNCTIONS YOU WILL PROBABLY NEVER NEED TO USE
-
-	//To use on PlayState.hx or Highscore stuff
 	public static function getCurrentWeekNumber():Int {
 		return getWeekNumber(PlayState.storyWeek);
 	}
@@ -266,13 +221,11 @@ class WeekData {
 			value = num;
 			if(weekNumber[num] != null) {
 				value = weekNumber[num];
-				//trace('Cur value: ' + value);
 			}
 		}
 		return value;
 	}
 
-	//Used on LoadingState, nothing really too relevant
 	public static function getWeekDirectory():String {
 		var value:String = loadDirectory[PlayState.storyWeek];
 		if(value == null) {

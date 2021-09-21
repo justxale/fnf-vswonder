@@ -267,8 +267,8 @@ class CreditsState extends MusicBeatState
 
 	private static var creditsStuff:Array<Dynamic> = [ //Name - Icon name - Description - Link - BG Color
 		['vs WonderNope team'],
-		['Xale','xale','Developer of Engine and Coder of the Mod','https://github.com/XaleTheCat', 0xFFf7a300],
 		['WonderNope','wonder','Director and Leader of the Mod','https://youtube.com/c/WonderNope', 0xFF00dd44],
+		['Xale','xale','Developer of Engine and Coder of the Mod','https://github.com/XaleTheCat', 0xFFf7a300],
 		['NotGeorg','georg','Animator of the Mod','https://github.com/XaleTheCat', 0xFF6475F3],
 		['Samsa','samsa','Background Artist and Artist of the Mod','https://github.com/XaleTheCat', 0xFF6475F3],
 		['Yamahearted','yama','Composer of the Mod','https://github.com/XaleTheCat', 0xFF6475F3],

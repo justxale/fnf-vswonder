@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-9,
+				30
+			],
+			"loop": false,
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Wonder Left",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-60,
+				110
+			],
+			"loop": false,
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Wonder Down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-55,
+				60
+			],
+			"loop": false,
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Wonder Up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-5,
+				0
+			],
+			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Wonder Right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"anim": "idle",
+			"fps": 24,
+			"name": "Wonder Idle",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": true,
+			"fps": 24,
+			"anim": "idle-loop",
+			"indices": [
+				10,
+				11,
+				12,
+				12
+			],
+			"name": "Wonder Idle"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Whachu_know_about_roooolling_down_in_a_deeeep",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "wonder",
+	"flip_x": false,
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 0.8
+}

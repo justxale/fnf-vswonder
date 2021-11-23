@@ -47,6 +47,8 @@ class TitleState extends MusicBeatState
 	var textGroup:FlxGroup;
 	var logoSpr:FlxSprite;
 
+	public static var isLogoLoaded:Bool = false;
+
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
@@ -71,6 +73,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 		#end
+		
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
@@ -82,7 +85,7 @@ class TitleState extends MusicBeatState
 		swagShader = new ColorSwap();
 		super.create();
 
-		FlxG.save.bind('funkin', 'ninjamuffin99');
+		FlxG.save.bind('grafex', 'xale');
 		ClientPrefs.loadPrefs();
 
 		Highscore.load();
@@ -149,6 +152,7 @@ class TitleState extends MusicBeatState
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
+		isLogoLoaded = true;
 
 		swagShader = new ColorSwap();
 		gfDance = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.07);
@@ -169,10 +173,6 @@ class TitleState extends MusicBeatState
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		add(titleText);
-
-		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
-		logo.screenCenter();
-		logo.antialiasing = ClientPrefs.globalAntialiasing;
 
 		credGroup = new FlxGroup();
 		add(credGroup);
@@ -323,27 +323,28 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		logoBl.animation.play('bump', true);
-		danceLeft = !danceLeft;
+		if(isLogoLoaded)
+		{
+			logoBl.animation.play('bump', true);
 
-		if (danceLeft)
-			gfDance.animation.play('danceRight');
-		else
-			gfDance.animation.play('danceLeft');
+			danceLeft = !danceLeft;
 
+			if (danceLeft)
+				gfDance.animation.play('danceRight');
+			else
+				gfDance.animation.play('danceLeft');
+		}
+		
 		FlxG.log.add(curBeat);
  
 		if(!closedState) {
 			switch (curBeat)
 			{
 				case 1:
-					createCoolText(['This mod is by'], 45);
+					createCoolText(['Graphex Engine by'], 45);
 				case 3:
-					addMoreText('WonderNope', 45);
-					addMoreText('Yamahearted', 45);
 					addMoreText('XaleTheCat', 45);
-					addMoreText('NotGeorg', 45);
-					addMoreText('Samsa', 45);
+					addMoreText('PurpleSnake', 45); 
 				case 4:
 					deleteCoolText();
 				case 5:
@@ -361,11 +362,11 @@ class TitleState extends MusicBeatState
 				case 12:
 					deleteCoolText();
 				case 13:
-					addMoreText('Friday Night Funkin');
+					addMoreText('Friday');
 				case 14:
-					addMoreText('vs WonderNope');
+					addMoreText('Night');
 				case 15:
-					addMoreText('yeah!');
+					addMoreText('Funkin');
 
 				case 16:
 					skipIntro();

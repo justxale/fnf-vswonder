@@ -10,6 +10,7 @@ import Controls;
 import SongData;
 import GameMenuStuff;
 import MusicBeatState;
+import VideoState;
 // ---
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -60,6 +61,7 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		TitleState.isLogoLoaded = false;
 		#if desktop
 		DiscordClient.changePresence("In the Menu", null);
 		#end
@@ -120,7 +122,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "vs WonderNope", 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Grafex Engine v" + EngineData.modEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -135,6 +137,7 @@ class MainMenuState extends MusicBeatState
 		super.create();
 	}
 
+	
 	var selectedSomethin:Bool = false;
 
 	override function update(elapsed:Float)
@@ -177,28 +180,32 @@ class MainMenuState extends MusicBeatState
 					{
 						FlxTween.tween(spr, {alpha: 0}, 0.4, {
 							ease: FlxEase.quadOut,
+							
+						});
+						FlxTween.tween(spr, {x : -500}, 0.4, {
+							ease: FlxEase.quadOut,
 							onComplete: function(twn:FlxTween)
 							{
 								spr.kill();
 							}
-						});
+						});					
 					}
 					else
 					{
 						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 						{
 							var daChoice:String = optionShit[curSelected];
-							switch (daChoice)
-							{
-								case 'story_mode':
-									MusicBeatState.switchState(new StoryMenuState());
-								case 'freeplay':
-									MusicBeatState.switchState(new FreeplayState());
-								case 'credits':
-									MusicBeatState.switchState(new CreditsState());
-								case 'options':
-									MusicBeatState.switchState(new OptionsState());
-							}
+									switch (daChoice)
+									{
+										case 'story_mode':
+											MusicBeatState.switchState(new StoryMenuState());
+										case 'freeplay':
+											MusicBeatState.switchState(new FreeplayState());
+										case 'credits':
+											MusicBeatState.switchState(new CreditsState());
+										case 'options':
+											MusicBeatState.switchState(new OptionsState());
+									}
 						});
 					}
 				});
@@ -223,9 +230,7 @@ class MainMenuState extends MusicBeatState
 
 
 		menuItems.forEach(function(spr:FlxSprite)
-		{
-			
-
+	{
 			if (spr.ID == curSelected)
 			{
 				spr.animation.play('selected');
@@ -252,10 +257,12 @@ class MainMenuState extends MusicBeatState
 								
 				FlxTween.tween(spr.scale, {x: 0.5, y: 0.5}, 0.1, {
 					ease: FlxEase.linear
-				});
+				});			
 			}
 		});
+	
 	}
+	
 }
 
 class CreditsState extends MusicBeatState
@@ -266,12 +273,9 @@ class CreditsState extends MusicBeatState
 	private var iconArray:Array<AttachedSprite> = [];
 
 	private static var creditsStuff:Array<Dynamic> = [ //Name - Icon name - Description - Link - BG Color
-		['vs WonderNope team'],
-		['WonderNope','wonder','Director and Leader of the Mod','https://youtube.com/c/WonderNope', 0xFF00dd44],
-		['Xale','xale','Developer of Engine and Coder of the Mod','https://github.com/XaleTheCat', 0xFFf7a300],
-		['NotGeorg','georg','Animator of the Mod','https://github.com/XaleTheCat', 0xFF6475F3],
-		['Samsa','samsa','Background Artist and Artist of the Mod','https://github.com/XaleTheCat', 0xFF6475F3],
-		['Yamahearted','yama','Composer of the Mod','https://github.com/XaleTheCat', 0xFF6475F3],
+		['Graphex Engine by'],
+		['XaleTheCat','xale','Lead Developer of Grafex Engine','https://github.com/XaleTheCat', 0xFFf7a300],
+		['PurpleSnake','snake','Additional developer of Grafex Engine','https://github.com/PurpleSSSnake', 0xFF6475F3],
 		[''],
 		['Psych Engine Team'],
 		['Shadow Mario','shadowmario','Main Programmer of Psych Engine','https://twitter.com/Shadow_Mario_',0xFFFFDD33],
@@ -426,7 +430,10 @@ class FreeplayState extends MusicBeatState
 		['pico'],							//Week 3
 		['mom'],							//Week 4
 		['parents', 'parents', 'monster'],	//Week 5
-		['senpai', 'senpai', 'spirit']		//Week 6
+		['senpai', 'senpai-angry', 'spirit'],		//Week 6
+                ['tankman']
+		
+
 	];
 
 	var songs:Array<SongMetadata> = [];
@@ -783,7 +790,8 @@ class StoryMenuState extends MusicBeatState
 		true,	//Week 3
 		true,	//Week 4
 		true,	//Week 5
-		true	//Week 6
+		true,   //Week 6
+		true	//Week 7
 	];
 
 	//It works like this:
@@ -795,7 +803,8 @@ class StoryMenuState extends MusicBeatState
 		['pico', 'bf', 'gf'],
 		['mom', 'bf', 'gf'],
 		['parents-christmas', 'bf', 'gf'],
-		['senpai', 'bf', 'gf']
+		['senpai', 'bf', 'gf'],
+		['tankman', 'bf', 'gf']
 	];
 
 	//The week's name, displayed on top-right
@@ -806,7 +815,8 @@ class StoryMenuState extends MusicBeatState
 		"PICO",
 		"MOMMY MUST MURDER",
 		"RED SNOW",
-		"hating simulator ft. moawling"
+		"hating simulator ft. moawling",
+		"tankman"
 	];
 
 	//Background asset name, the background files are stored on assets/preload/menubackgrounds/
@@ -817,7 +827,8 @@ class StoryMenuState extends MusicBeatState
 		'philly',
 		'limo',
 		'christmas',
-		'school'
+		'school',
+		'stage'
 	];
 	
 	var scoreText:FlxText;
@@ -877,7 +888,6 @@ class StoryMenuState extends MusicBeatState
 		add(grpLocks);
 
 		#if desktop
-		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
@@ -890,7 +900,6 @@ class StoryMenuState extends MusicBeatState
 
 			weekThing.screenCenter(X);
 			weekThing.antialiasing = ClientPrefs.globalAntialiasing;
-			// weekThing.updateHitbox();
 
 			// Needs an offset thingie
 			if (i < weekUnlocked.length && !weekUnlocked[i])
@@ -1080,9 +1089,17 @@ class StoryMenuState extends MusicBeatState
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
 			PlayState.campaignMisses = 0;
+
+			var video:MP4Handler = new MP4Handler();
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
-				LoadingState.loadAndSwitchState(new PlayState(), true);
+				if(sys.FileSystem.exists(Paths.video(PlayState.SONG.song.toLowerCase() + 'Cutscene'))) {
+					video.playMP4(Paths.video(PlayState.SONG.song.toLowerCase() + 'Cutscene'), new PlayState());
+					trace('File found');		
+					FreeplayState.destroyFreeplayVocals();
+				}
+				else
+					LoadingState.loadAndSwitchState(new PlayState(), true);
 				FreeplayState.destroyFreeplayVocals();
 			});
 		}
@@ -1190,10 +1207,9 @@ class OptionsState extends MusicBeatState
 
 	override function create() {
 		#if desktop
-		DiscordClient.changePresence("Options Menu", null);
+		DiscordClient.changePresence("In the Options Menu", null);
 		#end
 
-		FlxG.sound.playMusic(Paths.music("configurator"), 1, true);
 
                 menuBG = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		menuBG.color = 0xFFea71fd;
@@ -1245,7 +1261,7 @@ class OptionsState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.sound.music.stop();
+			
                         MusicBeatState.switchState(new MainMenuState());
 		}
 
@@ -1836,14 +1852,15 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Note Delay'
 	];
 	 
-        static var options:Array<String> = [
+    static var options:Array<String> = [
 		'GRAPHICS',
 		'Low Quality',
 		'Anti-Aliasing',
-		'Persistent Cached Data',
+
 		#if !html5
 		'Framerate', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
+
 		'GAMEPLAY',
 		'Downscroll',
 		'Ghost Tapping',
@@ -1852,6 +1869,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Hide HUD',
 		'Flashing Lights',
 		'Camera Zooms'
+
 		#if !mobile
 		,'FPS Counter'
 		#end
@@ -2020,7 +2038,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Middlescroll':
 						ClientPrefs.middleScroll = !ClientPrefs.middleScroll;
  
-                                        case 'Ghost Tapping':
+                    case 'Ghost Tapping':
 						ClientPrefs.ghostTapping = !ClientPrefs.ghostTapping;
 
 					case 'Camera Zooms':
@@ -2028,10 +2046,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'Hide HUD':
 						ClientPrefs.hideHud = !ClientPrefs.hideHud;
-
-					case 'Persistent Cached Data':
-						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
-						FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -2101,15 +2115,13 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If unchecked, hides FPS Counter.";
 			case 'Low Quality':
 				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
-			case 'Persistent Cached Data':
-				daText = "If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.";
 			case 'Anti-Aliasing':
 				daText = "If unchecked, disables anti-aliasing, increases performance\nat the cost of the graphics not looking as smooth.";
 			case 'Downscroll':
 				daText = "If checked, notes go Down instead of Up, simple enough.";
 			case 'Middlescroll':
 				daText = "If checked, hides Opponent's notes and your notes get centered.";
-                        case 'Ghost Tapping':
+            case 'Ghost Tapping':
 				daText = "If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.";
 			case 'Swearing':
 				daText = "If unchecked, your mom won't be angry at you.";
@@ -2211,8 +2223,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.camZooms;
 					case 'Hide HUD':
 						daValue = ClientPrefs.hideHud;
-					case 'Persistent Cached Data':
-						daValue = ClientPrefs.imagesPersist;
 				}
 				checkbox.daValue = daValue;
 			}

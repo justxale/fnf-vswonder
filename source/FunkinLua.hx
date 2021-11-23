@@ -51,6 +51,9 @@ class FunkinLua {
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
 
+		//trace('Lua version: ' + Lua.version());
+		//trace("LuaJIT version: " + Lua.versionJIT());
+
 		var result:Dynamic = LuaL.dofile(lua, script);
 		var resultStr:String = Lua.tostring(lua, result);
 		if(resultStr != null && result != 0) {
@@ -696,6 +699,15 @@ class FunkinLua {
 					return Reflect.setProperty(coverMeInPiss, killMe[killMe.length-1], value);
 				}
 				return Reflect.setProperty(sprites.get(tag), variable, value);
+			}
+		});
+		Lua_helper.add_callback(lua, "startDialogue", function(dialogueFile:String, ?song:String = null) {
+			if(FileSystem.exists(Paths.mods('data/' + dialogueFile + '.txt'))) {
+				var shit:Array<String> = File.getContent(Paths.mods('data/' + dialogueFile + '.txt')).trim().split('\n');
+				for (i in 0...shit.length) {
+					shit[i] = shit[i].trim();
+				}
+				lePlayState.dialogueIntro(shit, song);
 			}
 		});
 		call('onCreate', []);

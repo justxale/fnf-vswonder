@@ -8,7 +8,14 @@ import Controls;
 
 class EngineData
 {
-	public static var modEngineVersion:String = ' Custom Mod Build';
+	public static var modEngineVersion:String = 'b0.0.4';
+
+	public static var isCachingEnabled:Bool = false;
+	public static var isMod:Bool = false; // WIP
+
+	
+	// Note: Cache won't work if you run game with debug - Xale
+	// Another Note: Cache is kinda shit, so, by default it is false - Xale
 }
 
 class ClientPrefs {
@@ -26,36 +33,38 @@ class ClientPrefs {
 	public static var hideHud:Bool = false;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
-	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
+	public static var caching:Bool = true;
 
 	public static var defaultKeys:Array<FlxKey> = [
-		A, LEFT,			
-		S, DOWN,			
-		W, UP,				
-		D, RIGHT,			
+		A, LEFT,			//Note Left
+		S, DOWN,			//Note Down
+		W, UP,				//Note Up
+		D, RIGHT,			//Note Right
 
-		A, LEFT,			
-		S, DOWN,			
-		W, UP,			
-		D, RIGHT,			
+		A, LEFT,			//UI Left
+		S, DOWN,			//UI Down
+		W, UP,				//UI Up
+		D, RIGHT,			//UI Right
 
-		R, NONE,		
-		SPACE, ENTER,		
-		BACKSPACE, ESCAPE,
-		ENTER, ESCAPE		
+		R, NONE,			//Reset
+		SPACE, ENTER,		//Accept
+		BACKSPACE, ESCAPE,	//Back
+		ENTER, ESCAPE		//Pause
 	];
+	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState)'s list
 	public static var keyBinds:Array<Dynamic> = [
+		//Key Bind, Name for ControlsSubState
 		[Control.NOTE_LEFT, 'Left'],
 		[Control.NOTE_DOWN, 'Down'],
 		[Control.NOTE_UP, 'Up'],
 		[Control.NOTE_RIGHT, 'Right'],
 
-		[Control.UI_LEFT, 'Left '],		
-		[Control.UI_DOWN, 'Down '],		
-		[Control.UI_UP, 'Up '],			
-		[Control.UI_RIGHT, 'Right '],	
+		[Control.UI_LEFT, 'Left '],		//Added a space for not conflicting on ControlsSubState
+		[Control.UI_DOWN, 'Down '],		//Added a space for not conflicting on ControlsSubState
+		[Control.UI_UP, 'Up '],			//Added a space for not conflicting on ControlsSubState
+		[Control.UI_RIGHT, 'Right '],	//Added a space for not conflicting on ControlsSubState
 
 		[Control.RESET, 'Reset'],
 		[Control.ACCEPT, 'Accept'],
@@ -79,12 +88,13 @@ class ClientPrefs {
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.arrowHSV = arrowHSV;
-		FlxG.save.data.imagesPersist = imagesPersist;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.hideTime = hideTime;
+		FlxG.save.data.caching = caching;
+		//caching = FlxG.save.data.caching;
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls', 'xale');
+		save.bind('controls', 'xale'); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		save.data.customControls = lastControls;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -137,15 +147,14 @@ class ClientPrefs {
 		if(FlxG.save.data.arrowHSV != null) {
 			arrowHSV = FlxG.save.data.arrowHSV;
 		}
-		if(FlxG.save.data.imagesPersist != null) {
-			imagesPersist = FlxG.save.data.imagesPersist;
-			FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
-		}
 		if(FlxG.save.data.ghostTapping != null) {
 			ghostTapping = FlxG.save.data.ghostTapping;
 		}
 		if(FlxG.save.data.hideTime != null) {
 			hideTime = FlxG.save.data.hideTime;
+		}
+		if(FlxG.save.data.caching != null) {
+			caching = FlxG.save.data.caching;
 		}
 
 		var save:FlxSave = new FlxSave();
@@ -189,28 +198,57 @@ class ClientPrefs {
 			}
 		}
 	}
+
+	public static function getCaching()
+		{
+			caching = FlxG.save.data.caching;
+			return caching;
+		}
+		
 }
 
 class WeekData {
+	//Song names, used on both Story Mode and Freplay
+	//Go to FreeplayState.hx and add the head icons
+	//Go to StoryMenuState.hx and add the characters/backgrounds
 	public static var songsNames:Array<Dynamic> = [
-		['Tutorial'],	
-		['Bopeebo', 'Fresh', 'Dad-Battle']
+		['Tutorial'],							//Tutorial, this one isn't added to Freeplay, instead it is added from assets/preload/freeplaySonglist.txt
+		['Fandomer', 'My-Goal', 'Key']
 	];
 
+	// Custom week number, used for your week's score not being overwritten by a new vanilla week when the game updates
+	// I'd recommend setting your week as -99 or something that new vanilla weeks will probably never ever use
+	// null = Don't change week number, it follows the vanilla weeks number order
 	public static var weekNumber:Array<Dynamic> = [
-		null,
+		null,	
 		null
 	];
 
+	//Tells which assets directory should it load
+	//Reminder that you have to add the directories on Project.xml too or they won't be compiled!!!
+	//Just copy week6/week6_high mentions and rename it to whatever your week will be named
+	//It ain't that hard, i guess
+
+	//Oh yeah, quick reminder that files inside the folder that ends with _high are only loaded
+	//if you have the Low Quality option disabled on "Preferences"
 	public static var loadDirectory:Array<String> = [
-		'tutorial',
+		'tutorial', //Tutorial loads "tutorial" folder on assets/
 		null
 	];
+
+	//The only use for this is to display a different name for the Week when you're on the score reset menu.
+	//Set it to null to make the Week be automatically called "Week (Number)"
+
+	//Edit: This now also messes with Discord Rich Presence, so it's kind of relevant.
 	public static var weekResetName:Array<String> = [
 		"Tutorial",
-		null
+		"Void"
 	];
 
+
+	//   FUNCTIONS YOU WILL PROBABLY NEVER NEED TO USE
+
+	//To use on PlayState.hx or Highscore stuff
 	public static function getCurrentWeekNumber():Int {
 		return getWeekNumber(PlayState.storyWeek);
 	}
@@ -221,11 +259,13 @@ class WeekData {
 			value = num;
 			if(weekNumber[num] != null) {
 				value = weekNumber[num];
+				//trace('Cur value: ' + value);
 			}
 		}
 		return value;
 	}
 
+	//Used on LoadingState, nothing really too relevant
 	public static function getWeekDirectory():String {
 		var value:String = loadDirectory[PlayState.storyWeek];
 		if(value == null) {

@@ -6,17 +6,26 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import lime.utils.Assets;
 import flixel.FlxSprite;
+#if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
 import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
+#end
 
 using StringTools;
 
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
-	
+
+	#if MODS_ALLOWED
+		#if (haxe >= "4.0.0")
+		public static var customImagesLoaded:Map<String, FlxGraphic> = new Map();
+		#else
+		public static var customImagesLoaded:Map<String, FlxGraphic> = new Map<String, FlxGraphic>();
+		#end
+	#end
 	static var currentLevel:String;
 
 	static public function setCurrentLevel(name:String)
@@ -96,6 +105,12 @@ class Paths
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
+	inline static public function video(key:String, ?library:String)
+	{
+		trace('assets/videos/$key.mp4');
+		return getPath('videos/$key.mp4', BINARY, library);
+	}
+
 	inline static public function music(key:String, ?library:String)
 	{
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
@@ -120,9 +135,11 @@ class Paths
 		return getPath('images/$key.png', IMAGE, library);
 	}
 	
-	static public function getTextFromFile(key:String):String
+	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
 		#if sys
+		if (!ignoreMods && FileSystem.exists(mods(key)))
+			return File.getContent(mods(key));
 
 		if (FileSystem.exists(getPreloadPath(key)))
 			return File.getContent(getPreloadPath(key));

@@ -1,75 +1,75 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
-				-9,
+				21,
 				30
 			],
-			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "Wonder Left",
-			"indices": []
+			"indices": [],
+			"name": "Wonder Left"
 		},
 		{
-			"offsets": [
-				-60,
-				110
-			],
 			"loop": false,
+			"offsets": [
+				-40,
+				90
+			],
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "Wonder Down",
-			"indices": []
+			"indices": [],
+			"name": "Wonder Down"
 		},
 		{
-			"offsets": [
-				-55,
-				60
-			],
 			"loop": false,
-			"anim": "singUP",
+			"offsets": [
+				-73,
+				54
+			],
 			"fps": 24,
-			"name": "Wonder Up",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Wonder Up"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-5,
 				0
 			],
-			"loop": false,
-			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "Wonder Right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Wonder Right"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
+			"fps": 24,
 			"anim": "idle",
+			"indices": [],
+			"name": "Wonder Idle"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle-loop",
 			"fps": 24,
 			"name": "Wonder Idle",
-			"indices": []
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"loop": true,
-			"fps": 24,
-			"anim": "idle-loop",
 			"indices": [
 				10,
 				11,
 				12,
 				12
-			],
-			"name": "Wonder Idle"
+			]
 		}
 	],
 	"no_antialiasing": false,

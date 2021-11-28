@@ -2,8 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				-9,
-				30
+				-29,
+				-10
 			],
 			"loop": false,
 			"anim": "singLEFT",
@@ -13,8 +13,8 @@
 		},
 		{
 			"offsets": [
-				-60,
-				110
+				-40,
+				-50
 			],
 			"loop": false,
 			"anim": "singDOWN",
@@ -24,8 +24,8 @@
 		},
 		{
 			"offsets": [
-				-55,
-				60
+				-65,
+				40
 			],
 			"loop": false,
 			"anim": "singUP",
@@ -35,7 +35,7 @@
 		},
 		{
 			"offsets": [
-				-5,
+				-104,
 				0
 			],
 			"loop": false,
@@ -76,14 +76,14 @@
 	"image": "characters/wonder",
 	"position": [
 		0,
-		0
+		40
 	],
 	"healthicon": "wonder",
 	"flip_x": false,
 	"camera_position": [
-		0,
+		-40,
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 0.8
+	"scale": 0.9
 }

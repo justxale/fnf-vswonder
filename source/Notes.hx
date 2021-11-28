@@ -43,7 +43,7 @@ class Note extends FlxSprite
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
 				case 3: //Hurt note
-					reloadNote('HURT');
+					reloadNote('Purple');
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
@@ -334,7 +334,7 @@ class NoteSplash extends FlxSprite
 
 			switch(noteType) {
 				case 3: //Hurt note
-					loadAnims('HURT' + skin);
+					loadAnims('Purple' + skin);
 
 				case 4: //Healing note
 					loadAnims('Heal' + skin);

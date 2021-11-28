@@ -113,6 +113,7 @@ class PlayState extends MusicBeatState
 	public var dadGroup:FlxTypedGroup<Character>;
 	public var gfGroup:FlxTypedGroup<Character>;
 
+
 	public static var curStage:String = '';
 	public static var SONG:SongVars = null;
 	public static var isStoryMode:Bool = false;
@@ -256,6 +257,15 @@ class PlayState extends MusicBeatState
 	private var healthBarHigh:AttachedSprite;
 	public var healthBar:FlxBar;
 
+	// I'm ALIVE!
+	var shaking:Bool = false;
+	public var curStatic:FlxSprite = new FlxSprite();
+	public var hitStatic:FlxSprite = new FlxSprite();
+	public var bgDoor:FlxSprite = new FlxSprite(-570, -300);
+	public var bgNoDoor:FlxSprite = new FlxSprite(-570, -300);
+	public var door:FlxSprite = new FlxSprite(480, 0);
+	public var draining:Bool = false;
+
 	override public function create()
 	{
 		if (FlxG.sound.music != null)
@@ -314,21 +324,214 @@ class PlayState extends MusicBeatState
 		{
 			case 'fandomer':
 				curStage = 'gmodday';
-				defaultCamZoom = 0.6;
+				defaultCamZoom = 0.7;
 				var bg:FlxSprite = new FlxSprite(-570, -300);
 				bg.loadGraphic(Paths.image("justgmodlandscape", 'week1'));
-				bg.setGraphicSize(Std.int(bg.width * 3.2));
+				bg.setGraphicSize(Std.int(bg.width * 1.1));
 				bg.updateHitbox();
 				bg.scrollFactor.set(0.9, 0.9);
 				bg.antialiasing = true;
 				add(bg);
 
-				BF_X += 150;
-				BF_Y += 20;
-				GF_X += 180;
-				GF_Y -= 150;
+				BF_X += 450;
+				BF_Y += 160;
+				GF_X -= 120;
+				GF_Y += 30;
+				DAD_X -= 100;
+				DAD_Y += 40;
+
+				var agents:FlxSprite = new FlxSprite(1400, 300);
+				var agtex = Paths.getSparrowAtlas('dudes/agents', 'week1');
+
+				agents.frames = agtex;
+				agents.animation.addByPrefix('idle', "Family", 24);
+				agents.scale.y = 0.8;
+				agents.scale.x = 0.8;
+				agents.animation.play('idle');
+				agents.updateHitbox();
+				agents.scrollFactor.set(0.9, 0.9);
+				agents.antialiasing = true;
+				add(agents);
+
+				var monika:FlxSprite = new FlxSprite(-380, 110);
+				var montex = Paths.getSparrowAtlas('dudes/Monikak', 'week1');
+
+				monika.frames = montex;
+				monika.animation.addByPrefix('idle', "Monisus", 24);
+				monika.setGraphicSize(Std.int(0.9));
+				monika.scale.y = 0.6;
+				monika.scale.x = 0.6;
+				monika.animation.play('idle');
+				monika.updateHitbox();
+				monika.scrollFactor.set(0.9, 0.9);
+				monika.antialiasing = true;
+				add(monika);
+
+				var freddy:FlxSprite = new FlxSprite(-280, 110);
+				var frtex = Paths.getSparrowAtlas('dudes/mishk-fred', 'week1');
+
+				freddy.frames = frtex;
+				freddy.animation.addByPrefix('idle', "Ya Sirenogoloviy lalala ubeshat poprobuy lalala", 24);
+				freddy.setGraphicSize(Std.int(0.9));
+				freddy.scale.y = 0.8;
+				freddy.scale.x = 0.8;
+				freddy.animation.play('idle');
+				freddy.updateHitbox();
+				freddy.scrollFactor.set(0.9, 0.9);
+				freddy.antialiasing = true;
+				add(freddy);
+
+				var pearl:FlxSprite = new FlxSprite(50, 100);
+				var petex = Paths.getSparrowAtlas('dudes/is-this-a-steven-universe-reference-questionmark', 'week1');
+
+				pearl.frames = petex;
+				pearl.animation.addByPrefix('idle', "Pearllol", 24);
+				pearl.scale.y = 0.7;
+				pearl.scale.x = 0.7;
+				pearl.animation.play('idle');
+				pearl.updateHitbox();
+				pearl.scrollFactor.set(0.9, 0.9);
+				pearl.antialiasing = true;
+				add(pearl);
+
+				var charlee:FlxSprite = new FlxSprite(80, 140);
+				var chtex = Paths.getSparrowAtlas('dudes/Charlieee', 'week1');
+
+				charlee.frames = chtex;
+				charlee.animation.addByPrefix('idle', "Hazbin hotel is shit", 24); // I will punch this human later - XaleTheCat
+				charlee.scale.y = 0.7;
+				charlee.scale.x = 0.7;
+				charlee.animation.play('idle');
+				charlee.updateHitbox();
+				charlee.scrollFactor.set(0.9, 0.9);
+				charlee.antialiasing = true;
+				add(charlee);
+
+				var wtf:FlxSprite = new FlxSprite(650, 150);
+				var wtftex = Paths.getSparrowAtlas('dudes/Urakrakrakraroarka', 'week1');
+
+				wtf.frames = wtftex;
+				wtf.animation.addByPrefix('idle', "Nice opinion", 24);
+				wtf.setGraphicSize(Std.int(0.9));
+				wtf.scale.y = 0.7;
+				wtf.scale.x = 0.7;
+				wtf.animation.play('idle');
+				wtf.updateHitbox();
+				wtf.scrollFactor.set(0.9, 0.9);
+				wtf.antialiasing = true;
+				add(wtf);
+
+				var noob:FlxSprite = new FlxSprite(400, 50);
+				var notex = Paths.getSparrowAtlas('dudes/noov', 'week1');
+
+				noob.frames = notex;
+				noob.animation.addByPrefix('idle', "Roblox porn", 24);
+				noob.setGraphicSize(Std.int(0.9));
+				noob.scale.y = 0.7;
+				noob.scale.x = 0.7;
+				noob.animation.play('idle');
+				noob.updateHitbox();
+				noob.scrollFactor.set(0.9, 0.9);
+				noob.antialiasing = true;
+				add(noob);
+
+				var saness:FlxSprite = new FlxSprite(800, 300);
+				var satex = Paths.getSparrowAtlas('dudes/sans_wtfff', 'week1');
+
+				saness.frames = satex;
+				saness.animation.addByPrefix('idle', "Wtf sans??", 24);
+				saness.setGraphicSize(Std.int(0.9));
+				saness.scale.y = 0.7;
+				saness.scale.x = 0.7;
+				saness.animation.play('idle');
+				saness.updateHitbox();
+				saness.scrollFactor.set(0.9, 0.9);
+				saness.antialiasing = true;
+				add(saness);
+
+				var stevee:FlxSprite = new FlxSprite(1050, 200);
+				var sttex = Paths.getSparrowAtlas('dudes/Steve', 'week1');
+
+				stevee.frames = sttex;
+				stevee.animation.addByPrefix('idle', "uhhhhhh", 24);
+				stevee.setGraphicSize(Std.int(0.9));
+				stevee.scale.y = 0.7;
+				stevee.scale.x = 0.7;
+				stevee.animation.play('idle');
+				stevee.updateHitbox();
+				stevee.scrollFactor.set(0.9, 0.9);
+				stevee.antialiasing = true;
+				add(stevee);
+
+				var stevee:FlxSprite = new FlxSprite(1050, 200);
+				var sttex = Paths.getSparrowAtlas('dudes/Steve', 'week1');
+
+			case 'my goal':
+				curStage = 'gmodday';
+				defaultCamZoom = 0.7;
+
+				bgNoDoor.loadGraphic(Paths.image("night gmod", 'week1'));
+				bgNoDoor.setGraphicSize(Std.int(bgNoDoor.width * 1.1));
+				bgNoDoor.updateHitbox();
+				bgNoDoor.scrollFactor.set(0.9, 0.9);
+				bgNoDoor.antialiasing = true;
+				add(bgNoDoor);
+
+				bgDoor.loadGraphic(Paths.image("DOORS", 'week1'));
+				bgDoor.setGraphicSize(Std.int(bgDoor.width * 1.1));
+				bgDoor.updateHitbox();
+				bgDoor.scrollFactor.set(0.9, 0.9);
+				bgDoor.antialiasing = true;
+				add(bgDoor);
+				bgDoor.visible = false;
+
+				door.loadGraphic(Paths.image("doooor", 'week1'));
+				door.setGraphicSize(Std.int(door.width * 0.9));
+				door.updateHitbox();
+				door.scrollFactor.set(0.9, 0.9);
+				door.antialiasing = true;
+				add(door);
+				door.visible = false;
+
+				BF_X += 350;
+				BF_Y += 110;
+				GF_X -= 20;
+				GF_Y -= 20;
 				DAD_X += 100;
-				DAD_Y -= 100;
+				DAD_Y += 150;
+
+				var monika:FlxSprite = new FlxSprite(-380, 110);
+				var montex = Paths.getSparrowAtlas('dudes/Monikak', 'week1');
+
+				monika.frames = montex;
+				monika.animation.addByPrefix('idle', "Monisus", 24);
+				monika.setGraphicSize(Std.int(0.9));
+				monika.scale.y = 0.6;
+				monika.scale.x = 0.6;
+				monika.animation.play('idle');
+				monika.updateHitbox();
+				monika.scrollFactor.set(0.9, 0.9);
+				monika.antialiasing = true;
+				add(monika);
+
+			case 'key':
+				var bg:FlxSprite = new FlxSprite(-570, -300);
+
+				bg.loadGraphic(Paths.image("OMG DOORS", 'week1'));
+				bg.setGraphicSize(Std.int(bg.width * 1.1));
+				bg.updateHitbox();
+				bg.scrollFactor.set(0.9, 0.9);
+				bg.antialiasing = true;
+				add(bg);
+
+				defaultCamZoom = 0.7;
+
+				BF_X += 350;
+				BF_Y += 410;
+				GF_X += 180;
+				GF_Y += 80;
+				DAD_X += 100;
+				DAD_Y += 250;
 
 			default:
 				defaultCamZoom = 0.9;
@@ -431,6 +634,8 @@ class PlayState extends MusicBeatState
 		strumLine = new FlxSprite(STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
+
+		//var curStatic:FlxSprite = new FlxSprite();
 
 		timeTxt = new FlxText(strumLine.x + (strumLine.width / 2) - 248, strumLine.y - 30, 400, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -600,6 +805,23 @@ class PlayState extends MusicBeatState
 		loseVin.alpha = 0;
 		add(loseVin);
 
+		curStatic.frames = Paths.getSparrowAtlas('effects/purStatic');
+		curStatic.animation.addByPrefix('static', 'static', 24, false);
+		curStatic.setGraphicSize(Std.int(curStatic.width * 6));
+		curStatic.scrollFactor.set();
+		curStatic.updateHitbox();
+		curStatic.screenCenter();
+		curStatic.visible = false;
+		add(curStatic);
+
+		hitStatic.frames = Paths.getSparrowAtlas('effects/hitStatic');
+		hitStatic.animation.addByPrefix('static', 'staticANIMATION', 24, false);
+		hitStatic.setGraphicSize(Std.int(hitStatic.width * 3));
+		hitStatic.updateHitbox();
+		hitStatic.screenCenter();
+		hitStatic.visible = false;
+		add(hitStatic);
+
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -617,6 +839,8 @@ class PlayState extends MusicBeatState
 
 		loseVin.cameras = [camHUD];
 		badLoseVin.cameras = [camHUD];
+		curStatic.cameras = [camHUD];
+		hitStatic.cameras = [camHUD];
 
 		startingSong = true;
 		updateTime = true;
@@ -1485,7 +1709,7 @@ class PlayState extends MusicBeatState
 	{
 		#if !debug
 		perfectMode = false;
-		#end
+		#end		
 
 		callOnLuas('onUpdate', [elapsed]);
 
@@ -1673,23 +1897,33 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
+		if(shaking)
 			{
 				iconP1.animation.curAnim.curFrame = 1;
 				iconP2.animation.curAnim.curFrame = 2;
-				shakeFromLosing(iconP1);
 			}
-		else if (healthBar.percent > 20 && healthBar.percent < 80)
+		else
 			{
-				iconP1.animation.curAnim.curFrame = 0;
-				iconP2.animation.curAnim.curFrame = 0;
+				if (healthBar.percent < 20)
+					{
+	
+						iconP1.animation.curAnim.curFrame = 1;
+						iconP2.animation.curAnim.curFrame = 2;
+						shakeFromLosing(iconP1);
+					}
+				else if (healthBar.percent > 20 && healthBar.percent < 80)
+					{
+						iconP1.animation.curAnim.curFrame = 0;
+						iconP2.animation.curAnim.curFrame = 0;
+					}
+				else if (healthBar.percent > 80)
+					{
+						iconP1.animation.curAnim.curFrame = 2;
+						iconP2.animation.curAnim.curFrame = 1;
+						shakeFromLosing(iconP2);
+					}
 			}
-		else if (healthBar.percent > 80)
-			{
-				iconP1.animation.curAnim.curFrame = 2;
-				iconP2.animation.curAnim.curFrame = 1;
-				shakeFromLosing(iconP2);
-			}
+			
 
 		#if debug
 		if (FlxG.keys.justPressed.EIGHT) {
@@ -2960,14 +3194,14 @@ class PlayState extends MusicBeatState
 					{
 						if(!endingSong)
 						{
+							songMisses++;
 							RecalculateRating();
 							if(!note.isSustainNote)
 							{
-								
 								health -= 0.26; //0.26 + 0.04 = -0.3 (-15%) of HP if you hit a hurt note - ShadowMario
 								spawnNoteSplashOnNote(note);
+								healthDrain();
 							}
-							else health -= 0.06; //0.06 + 0.04 = -0.1 (-5%) of HP if you hit a hurt sustain note - ShadowMario
 						}
 			
 						note.wasGoodHit = true;
@@ -2986,11 +3220,13 @@ class PlayState extends MusicBeatState
 					if(cpuControlled) return;
 
 					if(!boyfriend.stunned)
-					{
+					{					
 						if(!endingSong)
 						{
+							
 							if(!note.isSustainNote)
 							{
+								FlxG.sound.play(Paths.sound('snd_power'));
 								health += 0.26; //0.26 + 0.04 = +0.3 (+15%) of HP if you hit a heal note - Xale
 								spawnNoteSplashOnNote(note);
 							}
@@ -3066,6 +3302,7 @@ class PlayState extends MusicBeatState
 				if(note.noteType == 1) daAlt = '-alt';
 
 				var animToPlay:String = '';
+				
 				switch (Std.int(Math.abs(note.noteData)))
 				{
 					case 0:
@@ -3360,14 +3597,21 @@ class PlayState extends MusicBeatState
 				shakeFromLosing(iconP1);
 
 		if (healthBar.percent > 80)
-			if(!endingSong)
+			if(!endingSong && !shaking)
 				shakeFromLosing(iconP2);
 
+		if(shaking)
+			{
+				healthBar.createFilledBar(p2HealthColor, 0xFF9a38ed);
+				shakeFromLosing(iconP1);
+			}
 
 		if (generatedMusic)
 		{
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
+
+
 
 		if (SONG.notes[Math.floor(curStep / 16)] != null)
 		{
@@ -3381,30 +3625,53 @@ class PlayState extends MusicBeatState
 			setOnLuas('mustHitSection', SONG.notes[Math.floor(curStep / 16)].mustHitSection);
 		}
 
-		if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && curBeat % 4 == 0)
+		trace(curBeat);
+		var beatPercent:Int = 4;
+
+		switch(SONG.song.toLowerCase())
+			{
+				case 'my goal':
+					if (curBeat >= 96)
+						{
+							beatPercent = 1;
+						}
+						
+					if (curBeat == 144)
+						{
+							var whiteScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
+							add(whiteScreen);
+							whiteScreen.scrollFactor.set();
+							whiteScreen.screenCenter();
+
+							FlxTween.tween(whiteScreen, {alpha: 0}, 1, {
+							startDelay: 0.1,
+							ease: FlxEase.linear,
+							onComplete: function(twn:FlxTween)
+								{
+									camHUD.visible = true;
+									remove(whiteScreen);
+									startCountdown();
+								}
+							});
+							bgDoor.visible = true;
+							bgNoDoor.visible = false;
+							door.visible = true;
+						}
+				
+				default:
+					beatPercent = 2;
+			}
+		
+		// Dear Modders, just listen to me before saying 'Xale, you are such an idiot'. I've tried some ways to do this thing, but this one seems to work properly...
+		// I know i'm dumb. Sorry! - Xale
+
+		if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && curBeat % beatPercent == 0)
 		{
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
 		}
 
-		
-
-
-                if (camZooming&& curBeat % 2 == 1)
-		   {
-			iconP2.scale.x += 0.15;
-		        iconP2.scale.y += 0.15;
-                        iconP1.scale.x += 0.15;
-		        iconP1.scale.y += 0.15;
-		   }
-		if (camZooming&& curBeat % 2 == 0)
-			{
-				iconP1.scale.x += 0.3;
-		                iconP1.scale.y += 0.3;
-			        iconP2.scale.x += 0.3;
-		                iconP2.scale.y += 0.3;
-
-                        }
+		var alarmPercent:Int = 4;
 		
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -3593,6 +3860,56 @@ class PlayState extends MusicBeatState
 			});
 		});
 	}
+
+	function healthDrain():Void
+		{			
+			healthBar.createFilledBar(p2HealthColor, 0xFF9a38ed);
+			boyfriend.playAnim('singUPmiss', true);
+			boyfriend.playAnim('singUPmiss', true);
+
+			FlxG.sound.play(Paths.sound('idk')); 
+			hitStatic.visible = true;
+			hitStatic.animation.play('static');
+			new FlxTimer().start(2, function(tmr:FlxTimer)	
+				{
+					hitStatic.visible = false;
+				});
+
+			new FlxTimer().start(0.001, function(tmr:FlxTimer)	
+			{
+				boyfriend.playAnim('singUPmiss', true);
+			});
+			
+	
+			var healthDrained:Float = 0;
+			
+	
+			new FlxTimer().start(0.0001, function(swagTimer:FlxTimer)
+				{
+					switch (SONG.song.toLowerCase())
+					{
+						case "my goal":
+							health -= 0.0016;
+						
+						default:
+							health -= 0.0008;
+					}
+					
+					shaking = true;
+					healthDrained += 0.0008;
+					if (healthDrained < 0.5)
+					{
+						swagTimer.reset();
+					}
+					else
+					{
+						healthDrained = 0;		
+						shaking = false;
+						healthBar.createFilledBar(p2HealthColor, p1HealthColor);
+					}
+				});
+	
+		}
 }
 	
 

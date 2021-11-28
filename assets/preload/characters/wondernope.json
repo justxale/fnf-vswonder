@@ -2,81 +2,65 @@
 	"animations": [
 		{
 			"offsets": [
-				-29,
-				-10
-			],
-			"loop": false,
-			"anim": "singLEFT",
-			"fps": 24,
-			"name": "Left Sing",
-			"indices": []
-		},
-		{
-			"offsets": [
-				-40,
-				-50
-			],
-			"loop": false,
-			"anim": "singDOWN",
-			"fps": 24,
-			"name": "Wonder Down",
-			"indices": []
-		},
-		{
-			"offsets": [
-				-65,
-				40
-			],
-			"loop": false,
-			"anim": "singUP",
-			"fps": 24,
-			"name": "Sing Up",
-			"indices": []
-		},
-		{
-			"offsets": [
-				-104,
-				0
-			],
-			"loop": false,
-			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "Right Note",
-			"indices": []
-		},
-		{
-			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
+			"indices": [],
+			"fps": 24,
 			"anim": "idle",
+			"loop": false,
+			"name": "Idle bruh"
+		},
+		{
+			"offsets": [
+				-9,
+				0
+			],
+			"indices": [],
 			"fps": 24,
-			"name": "Idle",
-			"indices": []
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "Left Lol"
+		},
+		{
+			"offsets": [
+				16,
+				-40
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "Right Pose"
+		},
+		{
+			"offsets": [
+				35,
+				20
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singUP",
+			"loop": false,
+			"name": "Up Note"
 		},
 		{
 			"offsets": [
 				0,
-				0
+				-80
 			],
-			"loop": true,
+			"indices": [],
 			"fps": 24,
-			"anim": "idle-loop",
-			"indices": [
-				10,
-				11,
-				12,
-				12
-			],
-			"name": "Idle"
+			"anim": "singDOWN",
+			"loop": false,
+			"name": "Down note"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/wonder",
+	"image": "characters/WonderNope",
 	"position": [
 		0,
-		40
+		80
 	],
 	"healthicon": "wonder",
 	"flip_x": false,
@@ -85,5 +69,5 @@
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 0.9
+	"scale": 1
 }

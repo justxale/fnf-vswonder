@@ -266,6 +266,8 @@ class PlayState extends MusicBeatState
 	public var door:FlxSprite = new FlxSprite(480, 0);
 	public var draining:Bool = false;
 
+	var animToPlay:String = '';
+
 	override public function create()
 	{
 		if (FlxG.sound.music != null)
@@ -462,9 +464,6 @@ class PlayState extends MusicBeatState
 				stevee.scrollFactor.set(0.9, 0.9);
 				stevee.antialiasing = true;
 				add(stevee);
-
-				var stevee:FlxSprite = new FlxSprite(1050, 200);
-				var sttex = Paths.getSparrowAtlas('dudes/Steve', 'week1');
 
 			case 'my goal':
 				curStage = 'gmodday';
@@ -3223,7 +3222,20 @@ class PlayState extends MusicBeatState
 					{					
 						if(!endingSong)
 						{
-							
+							var animToPlay:String = '';
+							switch (Std.int(Math.abs(note.noteData)))
+								{
+									case 0:
+										animToPlay = 'singLEFT';
+									case 1:
+										animToPlay = 'singDOWN';
+									case 2:
+										animToPlay = 'singUP';
+									case 3:
+										animToPlay = 'singRIGHT';
+								}
+								boyfriend.playAnim(animToPlay, true);
+
 							if(!note.isSustainNote)
 							{
 								FlxG.sound.play(Paths.sound('snd_power'));
@@ -3300,9 +3312,8 @@ class PlayState extends MusicBeatState
 			} else {
 				var daAlt = '';
 				if(note.noteType == 1) daAlt = '-alt';
-
+		
 				var animToPlay:String = '';
-				
 				switch (Std.int(Math.abs(note.noteData)))
 				{
 					case 0:

@@ -3676,7 +3676,7 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 			{
-				case 'fandomer':
+				case 'guests':
 					agents.animation.play('idle', true);
 					freddy.animation.play('idle', true);
 					monika.animation.play('idle', true);

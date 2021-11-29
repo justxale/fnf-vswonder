@@ -15,6 +15,7 @@ import BackgroundStuff;
 import Dialogue;
 import VideoState;
 // ---
+import lime.app.Application;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -299,6 +300,8 @@ class PlayState extends MusicBeatState
 		var songName:String = SONG.song;
 		displaySongName = StringTools.replace(songName, '-', ' ');
 
+		Application.current.window.title = Main.appTitle + ' - ' + CoolUtil.getArtist(SONG.song.toLowerCase()) + ' - ' + StringTools.replace(SONG.song.toUpperCase(), " ", "-") + ' [' + storyDifficultyText + ']';
+
 		#if desktop
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
 
@@ -526,11 +529,11 @@ class PlayState extends MusicBeatState
 				defaultCamZoom = 0.7;
 
 				BF_X += 350;
-				BF_Y += 410;
+				BF_Y += 210;
 				GF_X += 180;
 				GF_Y += 80;
 				DAD_X += 100;
-				DAD_Y += 250;
+				DAD_Y += 50;
 
 			default:
 				defaultCamZoom = 0.9;
@@ -595,9 +598,7 @@ class PlayState extends MusicBeatState
 		boyfriend.y += boyfriend.positionArray[1];
 		boyfriendGroup.add(boyfriend);
 		
-		camPos = new FlxPoint(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
-		camPos.x += gf.cameraPosition[0];
-		camPos.y += gf.cameraPosition[1];
+		var camPos:FlxPoint = new FlxPoint(dadPos[0], dadPos[1]);
 
 		if(dad.curCharacter.startsWith('gf')) {
 			dad.setPosition(GF_X, GF_Y);
@@ -843,6 +844,8 @@ class PlayState extends MusicBeatState
 
 		startingSong = true;
 		updateTime = true;
+
+		getCamOffsets();
 
 		#if MODS_ALLOWED
 		var doPush:Bool = false;
@@ -2155,6 +2158,11 @@ class PlayState extends MusicBeatState
 								animToPlay = 'singRIGHT';
 						}
 						dad.playAnim(animToPlay + altAnim, true);
+
+						if (!daNote.isSustainNote && camFocus == 'dad')
+							{
+								triggerCamMovement(Math.abs(daNote.noteData % 4));
+							}
 					}
 
 					dad.holdTimer = 0;
@@ -2234,8 +2242,13 @@ class PlayState extends MusicBeatState
 												case 3:
 													boyfriend.playAnim('singRIGHTmiss', true);
 											}
+											if (!daNote.isSustainNote && camFocus == 'bf')
+												{
+													triggerCamMovement(daNote.noteData % 4);
+												}
 										}
 										callOnLuas('noteMiss', [daNote.noteData, daNote.noteType]);
+										
 
 									case 3:
 										// Does nothing - Xale
@@ -3235,12 +3248,18 @@ class PlayState extends MusicBeatState
 										animToPlay = 'singRIGHT';
 								}
 								boyfriend.playAnim(animToPlay, true);
+								
+								
 
 							if(!note.isSustainNote)
 							{
 								FlxG.sound.play(Paths.sound('snd_power'));
 								health += 0.26; //0.26 + 0.04 = +0.3 (+15%) of HP if you hit a heal note - Xale
 								spawnNoteSplashOnNote(note);
+								if (camFocus == 'bf')
+									{
+										triggerCamMovement(note.noteData % 4);
+									}
 							}
 							else health += 0.06; //0.06 + 0.04 = +0.1 (+5%) of HP if you hit a heal sustain note - Xale
 						}
@@ -3325,6 +3344,10 @@ class PlayState extends MusicBeatState
 					case 3:
 						animToPlay = 'singRIGHT';
 				}
+				if (!note.isSustainNote && camFocus == 'bf')
+					{
+						triggerCamMovement(note.noteData % 4);
+					}
 				boyfriend.playAnim(animToPlay + daAlt, true);
 			}
 
@@ -3622,6 +3645,11 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
+		/*if (curBeat % 4 == 0 && generatedMusic)
+			{
+				checkFocus();
+			}*/
+
 
 
 		if (SONG.notes[Math.floor(curStep / 16)] != null)
@@ -3636,7 +3664,7 @@ class PlayState extends MusicBeatState
 			setOnLuas('mustHitSection', SONG.notes[Math.floor(curStep / 16)].mustHitSection);
 		}
 
-		trace(curBeat);
+		//trace(curBeat);
 		var beatPercent:Int = 4;
 
 		switch(SONG.song.toLowerCase())
@@ -3921,6 +3949,85 @@ class PlayState extends MusicBeatState
 				});
 	
 		}
+
+		var camLerp:Float = 0.4;
+		var camFocus:String = "";
+		var camMovement:FlxTween;
+		var daFunneOffsetMultiplier:Float = 20;
+		var dadPos:Array<Float> = [0, 0];
+		var bfPos:Array<Float> = [0, 0];
+
+		function triggerCamMovement(num:Float = 0)
+			{
+				/*camMovement.cancel();
+				trace(num);
+	
+				if (camFocus == 'bf')
+				{
+					switch (num)
+					{
+						case 2:
+							camMovement = FlxTween.tween(camFollowPos, {y: bfPos[1] - daFunneOffsetMultiplier, x: bfPos[0]}, 1, {ease: FlxEase.circIn});
+						case 3:
+							camMovement = FlxTween.tween(camFollowPos, {x: bfPos[0] + daFunneOffsetMultiplier, y: bfPos[1]}, 1, {ease: FlxEase.circIn});
+						case 1:
+							camMovement = FlxTween.tween(camFollowPos, {y: bfPos[1] + daFunneOffsetMultiplier, x: bfPos[0]}, 1, {ease: FlxEase.circIn});
+						case 0:
+							camMovement = FlxTween.tween(camFollowPos, {x: bfPos[0] - daFunneOffsetMultiplier, y: bfPos[1]}, 1, {ease: FlxEase.circIn});
+					}
+				}
+				else
+				{
+					switch (num)
+					{
+						case 2:
+							camMovement = FlxTween.tween(camFollowPos, {y: dadPos[1] - daFunneOffsetMultiplier, x: dadPos[0]}, 1, {ease: FlxEase.circIn});
+						case 3:
+							camMovement = FlxTween.tween(camFollowPos, {x: dadPos[0] + daFunneOffsetMultiplier, y: dadPos[1]}, 1, {ease: FlxEase.circIn});
+						case 1:
+							camMovement = FlxTween.tween(camFollowPos, {y: dadPos[1] + daFunneOffsetMultiplier, x: dadPos[0]}, 1, {ease: FlxEase.circIn});
+						case 0:
+							camMovement = FlxTween.tween(camFollowPos, {x: dadPos[0] - daFunneOffsetMultiplier, y: dadPos[1]}, 1, {ease: FlxEase.circIn});
+					}
+				}*/ 
+			} // DOES ABSOLUTELY NOTHIN, I HATE THIS SHIT, TIME'S UP!!! - Xale
+	
+			function checkFocus()
+			{
+				//trace(camFocus);
+				if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null)
+				{		
+					if (camFocus != "dad" && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+					{
+						//camMovement.cancel();
+						camFocus = 'dad';
+		
+						camMovement = FlxTween.tween(camFollow, {x: dadPos[0], y: dadPos[1]}, camLerp, {ease: FlxEase.quintOut});
+					}
+					if (camFocus != "bf" && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+					{
+						//camMovement.cancel();
+						camFocus = 'bf';
+		
+						camMovement = FlxTween.tween(camFollow, {x: bfPos[0], y: bfPos[1]}, camLerp, {ease: FlxEase.quintOut});
+					}
+		
+				}
+			}
+	
+			function getCamOffsets()
+			{
+				//dadPos[0] = dad.getMidpoint().x + 170;
+				//dadPos[1] = dad.getMidpoint().y + 75;
+				dadPos[0] = dad.getMidpoint().x;
+				dadPos[1] = dad.getMidpoint().y;
+		
+				//bfPos[0] = bf.getMidpoint().x + 300;
+				//bfPos[1] = bf.getMidpoint().y + 135;
+				bfPos[0] = boyfriend.getMidpoint().x;
+				bfPos[1] = boyfriend.getMidpoint().y;
+			}
+
 }
 	
 

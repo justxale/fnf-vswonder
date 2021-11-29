@@ -83,4 +83,20 @@ class CoolUtil
 	public static function GCD(a, b) {
 		return b == 0 ? FlxMath.absInt(a) : GCD(b, a % b);
 	}
+
+	public static function getArtist(song:String) 
+		{
+			var artistPrefix:String = 'Kawai Sprite';
+			switch (song)
+			{
+				case 'experimental-phase':
+					artistPrefix = 'TheInnuendo';
+				case 'perfection':
+					artistPrefix = 'Tenzubushi';
+				default:
+					artistPrefix = 'Kawai Sprite';
+			}	
+	
+			return artistPrefix;
+		}
 }

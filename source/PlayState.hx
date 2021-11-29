@@ -257,6 +257,7 @@ class PlayState extends MusicBeatState
 	private var healthBarBG:AttachedSprite;
 	private var healthBarHigh:AttachedSprite;
 	public var healthBar:FlxBar;
+	public var healthBarWN:FlxBar;
 
 	// I'm ALIVE!
 	var shaking:Bool = false;
@@ -713,7 +714,7 @@ class PlayState extends MusicBeatState
 			case 'nope':
 				p2HealthColor = 0xFF1eaa00;
 			case 'wondernope':
-				p2HealthColor = 0xFF7d93a2;
+				p2HealthColor = 0xFF1eaa00;
 		}
 		switch(SONG.player1)
 		{
@@ -744,7 +745,7 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
-		healthBarWN = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 12), this,
+		healthBarWN = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 14), this,
 			'health', 0, 2);
 		healthBarWN.scrollFactor.set();
 		healthBarWN.createFilledBar(0xFFb100af, p1HealthColor);
@@ -3896,7 +3897,7 @@ class PlayState extends MusicBeatState
 
 	function healthDrain():Void
 		{			
-			healthBar.createFilledBar(p2HealthColor, 0xFF9e0084);
+			healthBar.createFilledBar(p2HealthColor, 0xFFb100af);
 			boyfriend.playAnim('singUPmiss', true);
 
 			FlxG.sound.play(Paths.sound('idk')); 

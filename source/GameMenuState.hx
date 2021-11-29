@@ -12,6 +12,7 @@ import GameMenuStuff;
 import MusicBeatState;
 import VideoState;
 // ---
+import lime.app.Application;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -59,8 +60,37 @@ class MainMenuState extends MusicBeatState
 	public static var camFollow:FlxObject;
 	public static var camFollowPos:FlxObject;
 
+	private static var curWeek:Int = 0;
+
+	private static var curDifficulty:Int = 1;
+
+	var stopspamming:Bool = false;
+
+	public static var weekUnlocked:Array<Bool> = [
+		true,	//Tutorial
+		true,	//Week 1
+		true,	//Week 2
+		true,	//Week 3
+		true,	//Week 4
+		true,	//Week 5
+		true,   //Week 6
+		true	//Week 7
+	];
+
+	var scoreBG:FlxSprite;
+	var scoreText:FlxText;
+	var diffText:FlxText;
+	var lerpScore:Int = 0;
+	var lerpRating:Float = 0;
+	var intendedScore:Int = 0;
+	var intendedRating:Float = 0;
+
+	var songs:Array<SongMetadata> = [];
+
 	override function create()
 	{
+		Application.current.window.title = 'Main Menu';
+
 		TitleState.isLogoLoaded = false;
 		#if desktop
 		DiscordClient.changePresence("In the Menu", null);
@@ -142,6 +172,11 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (controls.UI_LEFT_P)
+			changeDiff(-1);
+		if (controls.UI_RIGHT_P)
+			changeDiff(1);
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -262,7 +297,83 @@ class MainMenuState extends MusicBeatState
 		});
 	
 	}
+	function selectWeek()
+		{
+			if (curWeek >= weekUnlocked.length || weekUnlocked[curWeek])
+			{
+				if (stopspamming == false)
+				{
+					FlxG.sound.play(Paths.sound('confirmMenu'));
 	
+					//grpWeekText.members[curWeek].startFlashing();
+					//grpWeekCharacters.members[1].animation.play('confirm');
+					stopspamming = true;
+				}
+	
+				// We can't use Dynamic Array .copy() because that crashes HTML5, here's a workaround.
+				var songArray:Array<String> = ['Fandomer', 'My Goal', 'Key'];
+				var leWeek:Array<Dynamic> = WeekData.songsNames[curWeek];
+				for (i in 0...leWeek.length) {
+					songArray.push(leWeek[i]);
+				}
+	
+				// I'm a motherfucking genious
+				PlayState.storyPlaylist = songArray;
+				PlayState.isStoryMode = true;
+				//selectedWeek = true;
+	
+				var diffic = CoolUtil.difficultyStuff[curDifficulty][1];
+				if(diffic == null) diffic = '';
+	
+				PlayState.storyDifficulty = curDifficulty;
+	
+				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
+				PlayState.storyWeek = curWeek;
+				PlayState.campaignScore = 0;
+				PlayState.campaignMisses = 0;
+	
+				var video:MP4Handler = new MP4Handler();
+				new FlxTimer().start(1, function(tmr:FlxTimer)
+				{
+					if(sys.FileSystem.exists(Paths.video(PlayState.SONG.song.toLowerCase() + 'Cutscene'))) {
+						video.playMP4(Paths.video(PlayState.SONG.song.toLowerCase() + 'Cutscene'), new PlayState());
+						trace('File found');		
+						FreeplayState.destroyFreeplayVocals();
+					}
+					else
+						LoadingState.loadAndSwitchState(new PlayState(), true);
+					FreeplayState.destroyFreeplayVocals();
+				});
+			}
+		}
+
+	private function positionHighscore() {
+		scoreText.x = FlxG.width - scoreText.width - 6;
+
+		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
+		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
+		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
+		diffText.x -= diffText.width / 2;
+	}
+
+	function changeDiff(change:Int = 0)
+		{
+			curDifficulty += change;
+	
+			if (curDifficulty < 0)
+				curDifficulty = CoolUtil.difficultyStuff.length-1;
+			if (curDifficulty >= CoolUtil.difficultyStuff.length)
+				curDifficulty = 0;
+	
+			#if !switch
+			intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
+			intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
+			#end
+	
+			PlayState.storyDifficulty = curDifficulty;
+			diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+			positionHighscore();
+		}
 }
 
 class CreditsState extends MusicBeatState
@@ -296,6 +407,8 @@ class CreditsState extends MusicBeatState
 
 	override function create()
 	{
+		Application.current.window.title = 'Credits';
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Credits Menu", null);
@@ -425,15 +538,7 @@ class FreeplayState extends MusicBeatState
 {
 	//Character head icons for your songs
 	static var songsHeads:Array<Dynamic> = [
-		['dad'],							//Week 1
-		['spooky', 'spooky', 'monster'],	//Week 2
-		['pico'],							//Week 3
-		['mom'],							//Week 4
-		['parents', 'parents', 'monster'],	//Week 5
-		['senpai', 'senpai-angry', 'spirit'],		//Week 6
-                ['tankman']
-		
-
+		['nope', 'wonder', 'wondernope']
 	];
 
 	var songs:Array<SongMetadata> = [];
@@ -463,6 +568,8 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+		Application.current.window.title = 'Freeplay Menu';
+
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
@@ -853,7 +960,9 @@ class StoryMenuState extends MusicBeatState
 	var rightArrow:FlxSprite;
 
 	override function create()
-	{
+	{	
+		Application.current.window.title = 'Main Menu';
+
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -1210,8 +1319,9 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("In the Options Menu", null);
 		#end
 
+		Application.current.window.title = 'Options';
 
-                menuBG = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+        menuBG = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		menuBG.color = 0xFFea71fd;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();

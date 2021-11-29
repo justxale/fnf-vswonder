@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="Heal_Note.png">
+<TextureAtlas imagePath="HealNOTE_assets.png">
 	<!-- Created with Adobe Animate version 20.0.3.25487 -->
 	<!-- http://www.adobe.com/products/animate.html -->
 	<SubTexture name="blue0000" x="307" y="10" width="149" height="143"/>
@@ -62,12 +62,12 @@
 	<SubTexture name="green0012" x="307" y="10" width="149" height="143"/>
 	<SubTexture name="green0013" x="307" y="10" width="149" height="143"/>
 	<SubTexture name="green0014" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red hold end0000" x="305" y="322" width="85" height="86"/>
+	<SubTexture name="red end hold0000" x="305" y="322" width="85" height="86"/>
 	<SubTexture name="red hold piece0000" x="400" y="322" width="86" height="91"/>
-	<SubTexture name="blue hold end0000" x="305" y="322" width="85" height="86"/>
+	<SubTexture name="blue end hold0000" x="305" y="322" width="85" height="86"/>
 	<SubTexture name="blue hold piece0000" x="400" y="322" width="86" height="91"/>
-	<SubTexture name="green hold end0000" x="305" y="322" width="85" height="86"/>
-	<SubTexture name="green hold piece0000" x="400" y="322" width="86" height="91"/>
-	<SubTexture name="pruple hold end0000" x="305" y="322" width="85" height="86"/>
+	<SubTexture name="pgreen end hold0000" x="305" y="322" width="85" height="86"/>
+	<SubTexture name="pgreen hold piece0000" x="400" y="322" width="86" height="91"/>
+	<SubTexture name="pruple end hold0000" x="305" y="322" width="85" height="86"/>
 	<SubTexture name="purple hold piece0000" x="400" y="322" width="86" height="91"/>
 </TextureAtlas>

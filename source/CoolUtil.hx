@@ -89,10 +89,8 @@ class CoolUtil
 			var artistPrefix:String = 'Kawai Sprite';
 			switch (song)
 			{
-				case 'experimental-phase':
-					artistPrefix = 'TheInnuendo';
-				case 'perfection':
-					artistPrefix = 'Tenzubushi';
+				case 'guests' | 'my goal' | 'key point':
+					artistPrefix = 'Yamahearted';
 				default:
 					artistPrefix = 'Kawai Sprite';
 			}	

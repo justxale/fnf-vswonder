@@ -265,9 +265,21 @@ class PlayState extends MusicBeatState
 	public var hitStatic:FlxSprite = new FlxSprite();
 	public var bgDoor:FlxSprite = new FlxSprite(-570, -300);
 	public var bgNoDoor:FlxSprite = new FlxSprite(-570, -300);
-	public var door:FlxSprite = new FlxSprite(480, 0);
+	public var door:FlxSprite = new FlxSprite(520, 0);
 	public var draining:Bool = false;
 
+	//im wonder
+	var agents:FlxSprite = new FlxSprite(1310, 300);
+	var monika:FlxSprite = new FlxSprite(-390, 115);
+	var freddy:FlxSprite = new FlxSprite(-310, 110);
+	var wtf:FlxSprite = new FlxSprite(680, 130);
+	var pearl:FlxSprite = new FlxSprite(20, 100);
+	var charlee:FlxSprite = new FlxSprite(50, 140);
+	var noob:FlxSprite = new FlxSprite(400, 50);
+	var saness:FlxSprite = new FlxSprite(760, 320);
+	var stevee:FlxSprite = new FlxSprite(1000, 200);
+	var monika2:FlxSprite = new FlxSprite(-200, 125);
+	
 	var animToPlay:String = '';
 
 	override public function create()
@@ -340,13 +352,13 @@ class PlayState extends MusicBeatState
 				add(bg);
 
 				BF_X += 450;
-				BF_Y += 160;
+				BF_Y += 120;
 				GF_X -= 120;
 				GF_Y += 30;
 				DAD_X -= 100;
-				DAD_Y += 40;
+				DAD_Y += 0;
 
-				var agents:FlxSprite = new FlxSprite(1400, 300);
+				//var agents:FlxSprite = new FlxSprite(1380, 300);
 				var agtex = Paths.getSparrowAtlas('dudes/agents', 'week1');
 
 				agents.frames = agtex;
@@ -359,12 +371,12 @@ class PlayState extends MusicBeatState
 				agents.antialiasing = true;
 				add(agents);
 
-				var monika:FlxSprite = new FlxSprite(-380, 110);
+				//var monika:FlxSprite = new FlxSprite(-390, 115);
 				var montex = Paths.getSparrowAtlas('dudes/Monikak', 'week1');
 
 				monika.frames = montex;
 				monika.animation.addByPrefix('idle', "Monisus", 24);
-				monika.setGraphicSize(Std.int(0.9));
+				monika.setGraphicSize(Std.int(0.83));
 				monika.scale.y = 0.6;
 				monika.scale.x = 0.6;
 				monika.animation.play('idle');
@@ -373,7 +385,7 @@ class PlayState extends MusicBeatState
 				monika.antialiasing = true;
 				add(monika);
 
-				var freddy:FlxSprite = new FlxSprite(-280, 110);
+				//var freddy:FlxSprite = new FlxSprite(-290, 110);
 				var frtex = Paths.getSparrowAtlas('dudes/mishk-fred', 'week1');
 
 				freddy.frames = frtex;
@@ -387,7 +399,7 @@ class PlayState extends MusicBeatState
 				freddy.antialiasing = true;
 				add(freddy);
 
-				var pearl:FlxSprite = new FlxSprite(50, 100);
+				//var pearl:FlxSprite = new FlxSprite(50, 100);
 				var petex = Paths.getSparrowAtlas('dudes/is-this-a-steven-universe-reference-questionmark', 'week1');
 
 				pearl.frames = petex;
@@ -400,7 +412,7 @@ class PlayState extends MusicBeatState
 				pearl.antialiasing = true;
 				add(pearl);
 
-				var charlee:FlxSprite = new FlxSprite(80, 140);
+				//var charlee:FlxSprite = new FlxSprite(80, 140);
 				var chtex = Paths.getSparrowAtlas('dudes/Charlieee', 'week1');
 
 				charlee.frames = chtex;
@@ -413,7 +425,7 @@ class PlayState extends MusicBeatState
 				charlee.antialiasing = true;
 				add(charlee);
 
-				var wtf:FlxSprite = new FlxSprite(650, 150);
+				//var wtf:FlxSprite = new FlxSprite(680, 130);
 				var wtftex = Paths.getSparrowAtlas('dudes/Urakrakrakraroarka', 'week1');
 
 				wtf.frames = wtftex;
@@ -427,7 +439,7 @@ class PlayState extends MusicBeatState
 				wtf.antialiasing = true;
 				add(wtf);
 
-				var noob:FlxSprite = new FlxSprite(400, 50);
+				//var noob:FlxSprite = new FlxSprite(400, 50);
 				var notex = Paths.getSparrowAtlas('dudes/noov', 'week1');
 
 				noob.frames = notex;
@@ -441,7 +453,7 @@ class PlayState extends MusicBeatState
 				noob.antialiasing = true;
 				add(noob);
 
-				var saness:FlxSprite = new FlxSprite(800, 300);
+				//var saness:FlxSprite = new FlxSprite(800, 320);
 				var satex = Paths.getSparrowAtlas('dudes/sans_wtfff', 'week1');
 
 				saness.frames = satex;
@@ -455,14 +467,14 @@ class PlayState extends MusicBeatState
 				saness.antialiasing = true;
 				add(saness);
 
-				var stevee:FlxSprite = new FlxSprite(1050, 200);
+				//var stevee:FlxSprite = new FlxSprite(1020, 200);
 				var sttex = Paths.getSparrowAtlas('dudes/Steve', 'week1');
 
 				stevee.frames = sttex;
 				stevee.animation.addByPrefix('idle', "uhhhhhh", 24);
 				stevee.setGraphicSize(Std.int(0.9));
-				stevee.scale.y = 0.7;
-				stevee.scale.x = 0.7;
+				stevee.scale.y = 0.65;
+				stevee.scale.x = 0.65;
 				stevee.animation.play('idle');
 				stevee.updateHitbox();
 				stevee.scrollFactor.set(0.9, 0.9);
@@ -497,25 +509,25 @@ class PlayState extends MusicBeatState
 				door.visible = false;
 
 				BF_X += 350;
-				BF_Y += 110;
+				BF_Y += 90;
 				GF_X -= 20;
 				GF_Y -= 20;
 				DAD_X += 100;
-				DAD_Y += 150;
+				DAD_Y += 130;
 
-				var monika:FlxSprite = new FlxSprite(-380, 110);
+				//var monika2:FlxSprite = new FlxSprite(-380, 110);
 				var montex = Paths.getSparrowAtlas('dudes/Monikak', 'week1');
 
-				monika.frames = montex;
-				monika.animation.addByPrefix('idle', "Monisus", 24);
-				monika.setGraphicSize(Std.int(0.9));
-				monika.scale.y = 0.6;
-				monika.scale.x = 0.6;
-				monika.animation.play('idle');
-				monika.updateHitbox();
-				monika.scrollFactor.set(0.9, 0.9);
-				monika.antialiasing = true;
-				add(monika);
+				monika2.frames = montex;
+				monika2.animation.addByPrefix('idle', "Monisus", 24);
+				monika2.setGraphicSize(Std.int(1.2));
+				monika2.scale.y = 0.8;
+				monika2.scale.x = 0.8;
+		        monika2.animation.play('idle');
+				monika2.updateHitbox();
+				monika2.scrollFactor.set(0.9, 0.9);
+				monika2.antialiasing = true;
+				add(monika2);
 
 			case 'key point':
 				var bg:FlxSprite = new FlxSprite(-570, -300);
@@ -529,9 +541,9 @@ class PlayState extends MusicBeatState
 
 				defaultCamZoom = 0.7;
 
-				BF_X += 350;
-				BF_Y += 210;
-				GF_X += 180;
+				BF_X += 330;
+				BF_Y += 160;
+				GF_X += 100;
 				GF_Y += 80;
 				DAD_X += 100;
 				DAD_Y += 50;
@@ -3664,8 +3676,23 @@ class PlayState extends MusicBeatState
 
 		switch(SONG.song.toLowerCase())
 			{
+				case 'fandomer':
+					agents.animation.play('idle', true);
+					freddy.animation.play('idle', true);
+					monika.animation.play('idle', true);
+					pearl.animation.play('idle', true);
+					charlee.animation.play('idle', true);
+					wtf.animation.play('idle', true);
+                    noob.animation.play('idle', true);
+                    saness.animation.play('idle', true);
+                    stevee.animation.play('idle', true);
+                  
+
+				
 				case 'my goal':
-					if (curBeat >= 96)
+					    monika2.animation.play('idle', true);
+				
+				    if (curBeat >= 96)
 						{
 							beatPercent = 1;
 						}

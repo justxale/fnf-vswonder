@@ -265,7 +265,7 @@ class PlayState extends MusicBeatState
 	public var hitStatic:FlxSprite = new FlxSprite();
 	public var bgDoor:FlxSprite = new FlxSprite(-570, -300);
 	public var bgNoDoor:FlxSprite = new FlxSprite(-570, -300);
-	public var door:FlxSprite = new FlxSprite(520, 0);
+	public var door:FlxSprite = new FlxSprite(550, 0);
 	public var draining:Bool = false;
 
 	//im wonder
@@ -273,8 +273,8 @@ class PlayState extends MusicBeatState
 	var monika:FlxSprite = new FlxSprite(-390, 115);
 	var freddy:FlxSprite = new FlxSprite(-310, 110);
 	var wtf:FlxSprite = new FlxSprite(680, 130);
-	var pearl:FlxSprite = new FlxSprite(20, 100);
-	var charlee:FlxSprite = new FlxSprite(50, 140);
+	var pearl:FlxSprite = new FlxSprite(0, 100);
+	var charlee:FlxSprite = new FlxSprite(30, 140);
 	var noob:FlxSprite = new FlxSprite(400, 50);
 	var saness:FlxSprite = new FlxSprite(760, 320);
 	var stevee:FlxSprite = new FlxSprite(1000, 200);
@@ -510,20 +510,20 @@ class PlayState extends MusicBeatState
 
 				BF_X += 350;
 				BF_Y += 90;
-				GF_X -= 20;
-				GF_Y -= 20;
+				GF_X -= 10;
+				GF_Y -= 0;
 				DAD_X += 100;
-				DAD_Y += 130;
+				DAD_Y += 70;
 
 				//var monika2:FlxSprite = new FlxSprite(-380, 110);
 				var montex = Paths.getSparrowAtlas('dudes/Monikak', 'week1');
 
 				monika2.frames = montex;
-				monika2.animation.addByPrefix('idle', "Monisus", 24);
+				monika2.animation.addByPrefix('idle', "Monisus", 22);
 				monika2.setGraphicSize(Std.int(1.2));
 				monika2.scale.y = 0.8;
 				monika2.scale.x = 0.8;
-		        monika2.animation.play('idle');
+		        //monika2.animation.play('idle');
 				monika2.updateHitbox();
 				monika2.scrollFactor.set(0.9, 0.9);
 				monika2.antialiasing = true;
@@ -543,7 +543,7 @@ class PlayState extends MusicBeatState
 
 				BF_X += 330;
 				BF_Y += 160;
-				GF_X += 100;
+				GF_X += 115;
 				GF_Y += 80;
 				DAD_X += 100;
 				DAD_Y += 50;
@@ -3690,7 +3690,7 @@ class PlayState extends MusicBeatState
 
 				
 				case 'my goal':
-					if(curBeat % 2 == 0) 
+				
 				        monika2.animation.play('idle', true);
 				
 				    if (curBeat >= 96)

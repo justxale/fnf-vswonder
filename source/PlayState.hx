@@ -3690,7 +3690,8 @@ class PlayState extends MusicBeatState
 
 				
 				case 'my goal':
-					    monika2.animation.play('idle', true);
+					if(curBeat % 2 == 0) 
+				        monika2.animation.play('idle', true);
 				
 				    if (curBeat >= 96)
 						{

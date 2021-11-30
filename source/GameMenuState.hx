@@ -55,7 +55,7 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	
 	var optionShit:Array<String> = ['story_mode', 'freeplay', 'credits', 'options'];
-
+	var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 	var magenta:FlxSprite;
 	public static var camFollow:FlxObject;
 	public static var camFollowPos:FlxObject;
@@ -107,7 +107,7 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		//var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -206,6 +206,19 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
+				FlxTween.tween(FlxG.camera, {zoom: 1.1}, 1, {ease: FlxEase.expoOut});
+				FlxTween.tween(bg, {angle: 5}, 1, {ease: FlxEase.expoOut});
+				FlxTween.tween(magenta, {angle: 5}, 1, {ease: FlxEase.expoOut});
+				new FlxTimer().start(1.4, function(tmr:FlxTimer)
+					{
+						FlxTween.tween(FlxG.camera, {zoom: 1}, 1.2, {ease: FlxEase.expoOut});
+				        FlxTween.tween(bg, {angle: 0}, 1.2, {ease: FlxEase.expoOut});
+				        FlxTween.tween(magenta, {angle: 0}, 1.2, {ease: FlxEase.expoOut});
+	
+					});
+				
+				
+				
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
@@ -759,6 +772,10 @@ class FreeplayState extends MusicBeatState
 			}
 			trace(poop);
 
+			FlxTween.tween(FlxG.camera, {zoom: 1.1}, 1, {ease: FlxEase.expoOut});
+			FlxTween.tween(bg, {angle: 5}, 1, {ease: FlxEase.expoOut});
+		    FlxG.sound.play(Paths.sound('confirmMenu'));
+			
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
@@ -768,7 +785,15 @@ class FreeplayState extends MusicBeatState
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
-			LoadingState.loadAndSwitchState(new PlayState());
+			
+			new FlxTimer().start(1.4, function(tmr:FlxTimer)
+				{
+					LoadingState.loadAndSwitchState(new PlayState());
+
+				});
+			
+			
+			
 
 			FlxG.sound.music.volume = 0;
 					

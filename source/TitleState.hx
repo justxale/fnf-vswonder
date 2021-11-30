@@ -146,7 +146,7 @@ class TitleState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
-		logoBl = new FlxSprite(-100, -80);
+		logoBl = new FlxSprite(-100, 380);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
@@ -174,6 +174,7 @@ class TitleState extends MusicBeatState
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
+		titleText.angle = 0;
 		add(titleText);
 
 		credGroup = new FlxGroup();
@@ -381,7 +382,16 @@ class TitleState extends MusicBeatState
 	function skipIntro():Void
 	{
 		if (!skippedIntro)
-		{
+		{ 
+			
+			FlxG.camera.zoom = 5.3;
+			FlxTween.tween(FlxG.camera,{zoom: 1}, 0.8, {ease: FlxEase.expoInOut});
+			
+			FlxTween.tween(logoBl,{y: -80}, 1.8, {ease: FlxEase.expoInOut});
+			
+			
+			
+			
 			remove(logoSpr);
 
 			FlxG.camera.flash(FlxColor.WHITE, 1);

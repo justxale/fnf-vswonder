@@ -40,6 +40,7 @@ import flixel.system.FlxSound;
 
 import flixel.math.FlxAngle;
 import flixel.text.FlxText;
+import flixel.addons.text.FlxTypeText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
@@ -88,21 +89,6 @@ class PlayState extends MusicBeatState
 	public var gfMap:Map<String, Character> = new Map<String, Character>();
 	#end
 
-	var tank0:FlxSprite;
-	var tank1:FlxSprite;
-	var tank2:FlxSprite;
-	var tank3:FlxSprite;
-	var tank4:FlxSprite;
-	var tank5:FlxSprite;
-	var tankRolling:FlxSprite;
-	var tankX = 400;
-	var tankAngle:Float = FlxG.random.int(-90, 45);
-	var tankSpeed:Float = FlxG.random.float(5, 7);
-	var tankWatchtower:FlxSprite;
-	var tankmanRun:FlxTypedGroup<TankmenBG>;
-	var picoStep:Ps;
-	var tankStep:Ts;
-
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
 	public var DAD_X:Float = 100;
@@ -113,7 +99,6 @@ class PlayState extends MusicBeatState
 	public var boyfriendGroup:FlxTypedGroup<Boyfriend>;
 	public var dadGroup:FlxTypedGroup<Character>;
 	public var gfGroup:FlxTypedGroup<Character>;
-
 
 	public static var curStage:String = '';
 	public static var SONG:SongVars = null;
@@ -267,6 +252,7 @@ class PlayState extends MusicBeatState
 	public var bgNoDoor:FlxSprite = new FlxSprite(-570, -300);
 	public var door:FlxSprite = new FlxSprite(550, 0);
 	public var draining:Bool = false;
+	public var watchingDialogue:Bool = false;
 
 	//im wonder
 	var agents:FlxSprite = new FlxSprite(1310, 300);
@@ -281,6 +267,30 @@ class PlayState extends MusicBeatState
 	var monika2:FlxSprite = new FlxSprite(-200, 125);
 	
 	var animToPlay:String = '';
+
+	// I HATE THIS SHIT (aka Dialogue Shit)
+	public var keysPressed:Int = 0;
+	var dialogueWindow:FlxSprite = new FlxSprite(200, 200);
+	var dialText:FlxTypeText;
+
+	var survie:FlxSprite = new FlxSprite();
+
+	var gfIcon:FlxSprite = new FlxSprite();
+	var bfIcon:FlxSprite = new FlxSprite();
+
+	var nFaceFandom:FlxSprite = new FlxSprite();
+	var nFaceAngry:FlxSprite = new FlxSprite();
+	var nFaceNormal1:FlxSprite = new FlxSprite();
+	var nFaceNormal2:FlxSprite = new FlxSprite();
+	var nFaceNormal3:FlxSprite = new FlxSprite();
+	var nFaceScary:FlxSprite = new FlxSprite();
+	var nFaceQuestioned:FlxSprite = new FlxSprite();
+
+	var wFaceScary1:FlxSprite = new FlxSprite();	
+	var wFaceScary2:FlxSprite = new FlxSprite();
+	var wFaceScary3:FlxSprite = new FlxSprite();
+
+	var surTalking:Bool = false;
 
 	override public function create()
 	{
@@ -775,9 +785,6 @@ class PlayState extends MusicBeatState
 		healthBarHigh.xAdd = -4;
 		healthBarHigh.yAdd = -4;
 		add(healthBarHigh);
-		
-		healthBarHigh.cameras = [camHUD];
-
 
 		switch (SONG.song.toLowerCase()) // Made this cuz this black things looks bad with pixel arrows lol - Xale
 		{
@@ -857,6 +864,7 @@ class PlayState extends MusicBeatState
 		healthBar.cameras = [camHUD];
 		healthBarWN.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
+		healthBarHigh.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -952,11 +960,17 @@ class PlayState extends MusicBeatState
 							});
 						});
 					});
-				case 'senpai' | 'roses' | 'thorns':
-					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
-						schoolIntro(doof);
-				case 'guests' | 'my goal' | 'key point':
-					schoolIntro(doof);
+				case 'guests':
+					watchingDialogue = true;
+					dialogueIntro(dialogue); // very shitty - Not Xale
+
+				case 'my goal':
+					watchingDialogue = true;
+					goalDialogue(); // very shitty - Not Xale
+
+				case 'key point':
+					watchingDialogue = true;
+					keyDialogue(); // very shitty - Not Xale
 
 				default:
 					startCountdown();
@@ -977,20 +991,6 @@ class PlayState extends MusicBeatState
 		super.create();
 	}
 
-	function moveTank()
-		{
-			tankAngle += FlxG.elapsed * tankSpeed;
-			tankRolling.angle = tankAngle - 90 + 15;
-			tankRolling.x = tankX + 1500 * FlxMath.fastCos(FlxAngle.asRadians(tankAngle + 180));
-			tankRolling.y = 1300 + 1100 * FlxMath.fastSin(FlxAngle.asRadians(tankAngle + 180));
-		}
-	
-	function again()
-		{
-			tankRolling.x = 300;
-			tankRolling.y = 300;
-			moveTank();
-		}
 	public function addCharacterToList(newCharacter:String, type:Int) {
 		switch(type) {
 			case 0:
@@ -1737,19 +1737,19 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		#if !debug
-		perfectMode = false;
-		#end		
+		if(survie.visible || bfIcon.visible || gfIcon.visible)
+			surTalking = true;
+
+		if(surTalking)
+			dialogueWindow.flipX = true;
+
+		if(FlxG.keys.justPressed.ANY && watchingDialogue)
+			keysPressed++;
 
 		callOnLuas('onUpdate', [elapsed]);
 
 		switch (curStage)
-		{
-			case 'tankStage':
-				moveTank();
-			case 'tankStage2':
-				moveTank();
-			
+		{			
 			case 'schoolEvil':
 				if(!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished) {
 					bgGhouls.visible = false;
@@ -3582,48 +3582,6 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
-	
-		if(!endingSong)
-		{
-			if(SONG.song.toLowerCase() == 'stress')  //ITS WORKED, BUT NOW ITS FUCKIN CRASHED GAME?? - Snake // Uhm... is it okay now? - Xale
-			{
-				//RIGHT
-				for(i in 0...picoStep.right.length)
-				{
-					if (curStep == picoStep.right[i])
-					{
-						gf.playAnim('shoot' + FlxG.random.int(1, 2), true);
-					}
-				}
-				//LEFT
-				for(i in 0...picoStep.left.length)
-				{
-					if (curStep == picoStep.left[i])
-					{
-						gf.playAnim('shoot' + FlxG.random.int(3, 4), true);
-					}
-				}
-				//Left tankspawn
-				for (i in 0...tankStep.left.length)
-				{
-					if (curStep == tankStep.left[i]){
-						var tankmanRunner:TankmenBG = new TankmenBG();
-						tankmanRunner.resetShit(FlxG.random.int(630, 730) * -1, 255, true, 1, 1.5);
-						tankmanRun.add(tankmanRunner);
-					}
-				}
-		
-				//Right spawn
-				for(i in 0...tankStep.right.length)
-				{
-					if (curStep == tankStep.right[i]){
-						var tankmanRunner:TankmenBG = new TankmenBG();
-						tankmanRunner.resetShit(FlxG.random.int(1500, 1700) * 1, 275, false, 1, 1.5);
-						tankmanRun.add(tankmanRunner);
-					}
-				}
-			}
-		}
 	}
 
 	var lightningStrikeBeat:Int = 0;
@@ -3792,27 +3750,6 @@ class PlayState extends MusicBeatState
 				if (FlxG.random.bool(10) && fastCarCanDrive)
 					fastCarDrive();
 			
-				case "tankStage2":
-					if(curBeat % 2 == 0){
-						tankWatchtower.animation.play('idle', true);
-						tank0.animation.play('idle', true);
-						tank1.animation.play('idle', true);
-						tank2.animation.play('idle', true);
-						tank3.animation.play('idle', true);
-						tank4.animation.play('idle', true);
-						tank5.animation.play('idle', true);
-					}
-					case "tankStage":		
-					if(curBeat % 2 == 0){
-						tankWatchtower.animation.play('idle', true);
-						tank0.animation.play('idle', true);
-						tank1.animation.play('idle', true);
-						tank2.animation.play('idle', true);
-						tank3.animation.play('idle', true);
-						tank4.animation.play('idle', true);
-						tank5.animation.play('idle', true);
-					}
-			
 				case "philly":
 				if (!trainMoving)
 					trainCooldown += 1;
@@ -3980,18 +3917,77 @@ class PlayState extends MusicBeatState
 				});
 	
 		}
-}
 	
+	function guestsDialogue():Void
+		{	
+			dialogueWindow.loadGraphic(Paths.image("dialogueWindow", 'shared'));
+			dialogueWindow.setGraphicSize(Std.int(dialogueWindow.width * 2.3));	
+			dialogueWindow.updateHitbox();	
+			dialogueWindow.screenCenter(X);
+			dialogueWindow.y = 450;		
+			dialogueWindow.scrollFactor.set(1, 1);
+			dialogueWindow.antialiasing = true;
+			dialogueWindow.alpha = 0;
+			add(dialogueWindow);
 
-typedef Ps = 
-	{
-		var right:Array<Int>;
-		var left:Array<Int>;
+			nFaceNormal1.loadGraphic(Paths.image("emote/NopeNormal1", 'shared'));
+			nFaceNormal1.scale.y = 0.4;
+			nFaceNormal1.scale.x = 0.4;
+			nFaceNormal1.y = dialogueWindow.y;
+			nFaceNormal1.x = dialogueWindow.x;
+			nFaceNormal1.updateHitbox();
+			nFaceNormal1.scrollFactor.set(1, 1);
+			nFaceNormal1.antialiasing = true;
+			nFaceNormal1.visible = false;
+			add(nFaceNormal1);
+
+			nFaceNormal3.loadGraphic(Paths.image("emote/NopeNormal3", 'shared'));
+			nFaceNormal3.scale.y = 0.4;
+			nFaceNormal3.scale.x = 0.4;
+			nFaceNormal3.y = dialogueWindow.y;
+			nFaceNormal3.x = dialogueWindow.x;
+			nFaceNormal3.scrollFactor.set(1, 1);
+			nFaceNormal3.updateHitbox();
+			nFaceNormal3.antialiasing = true;
+			nFaceNormal3.visible = false;
+			add(nFaceNormal3);
+
+			survie.loadGraphic(Paths.image("emote/Survie", 'shared'));
+			survie.scale.y = 0.4;
+			survie.scale.x = 0.4;
+			survie.y = dialogueWindow.y + 20;
+			survie.x = dialogueWindow.x + 700;
+			survie.updateHitbox();
+			survie.scrollFactor.set(1, 1);
+			survie.antialiasing = true;
+			survie.visible = false;
+			add(survie);
+
+			survie.cameras = [camHUD];
+			nFaceNormal1.cameras = [camHUD];
+			nFaceNormal3.cameras = [camHUD];
+			dialogueWindow.cameras = [camHUD];
+			bfIcon.cameras = [camHUD];
+			gfIcon.cameras = [camHUD];
+
+
+			FlxTween.tween(dialogueWindow, {alpha: 1}, 2, {
+				onComplete: function(twn:FlxTween)
+				{
+					startCountdown();
+				}
+		});
 	}
-	
-	//tank spawns
-typedef Ts = 
-	{
-		var right:Array<Int>;
-		var left:Array<Int>;
-	}	
+
+	function goalDialogue():Void
+		{
+			//if(keysPressed == 1)
+			startCountdown();
+		}
+
+	function keyDialogue():Void
+		{
+			startCountdown();
+
+		}
+}

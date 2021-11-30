@@ -1,5 +1,8 @@
-:dad:Direct contact with real humans, after being trapped in here for so long...
-:dad:and HER of all people.
-:dad:I'll make her father pay for what he's done to me and all the others,,,,
-:dad:I'll beat you and make you take my place.
-:dad:You don't mind your bodies being borrowed right? It's only fair...
+bf:bf
+:0:talk:0.05:0:Что?
+:0:talk:0.05:0:Where are we?
+:1:talk:0.05:0:Beep?
+:0:unamused:0.05:0:That much is obvious.
+:0:talk:0.05:0:It seems we're stuck in some sort of\nalternate reality...
+:1:talk:0.05:0:Eep skee dah?
+:0:talk:0.05:0:Since we're here anyway, I suppose one\nsong couldn't hurt.

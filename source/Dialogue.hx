@@ -23,9 +23,9 @@ class PixelDialogueBox extends FlxSpriteGroup
 	var dialogue:Alphabet;
 	var dialogueList:Array<String> = [];
 
-	var swagDialogue:FlxTypeText;
+	public var swagDialogue:FlxTypeText;
 
-	var dropText:FlxText;
+	public var dropText:FlxText;
 
 	public var finishThing:Void->Void;
 	public var nextDialogueThing:Void->Void = null;
@@ -157,7 +157,7 @@ class PixelDialogueBox extends FlxSpriteGroup
 			dropText.color = FlxColor.BLACK;
 		}
 
-		dropText.text = swagDialogue.text;
+		//dropText.text = swagDialogue.text;
 
 		if (box.animation.curAnim != null)
 		{

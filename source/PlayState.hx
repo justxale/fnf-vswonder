@@ -960,18 +960,6 @@ class PlayState extends MusicBeatState
 							});
 						});
 					});
-				case 'guests':
-					watchingDialogue = true;
-					dialogueIntro(dialogue); // very shitty - Not Xale
-
-				case 'my goal':
-					watchingDialogue = true;
-					goalDialogue(); // very shitty - Not Xale
-
-				case 'key point':
-					watchingDialogue = true;
-					keyDialogue(); // very shitty - Not Xale
-
 				default:
 					startCountdown();
 			}

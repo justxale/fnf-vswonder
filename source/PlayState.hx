@@ -256,7 +256,7 @@ class PlayState extends MusicBeatState
 
 	//im wonder
 	var agents:FlxSprite = new FlxSprite(1310, 300);
-	var monika:FlxSprite = new FlxSprite(-390, 115);
+	var monika:FlxSprite = new FlxSprite(-410, 115);
 	var freddy:FlxSprite = new FlxSprite(-310, 110);
 	var wtf:FlxSprite = new FlxSprite(680, 130);
 	var pearl:FlxSprite = new FlxSprite(0, 100);
@@ -523,7 +523,7 @@ class PlayState extends MusicBeatState
 				GF_X -= 10;
 				GF_Y -= 0;
 				DAD_X += 100;
-				DAD_Y += 70;
+				DAD_Y += 50;
 
 				//var monika2:FlxSprite = new FlxSprite(-380, 110);
 				var montex = Paths.getSparrowAtlas('dudes/Monikak', 'week1');
@@ -531,8 +531,8 @@ class PlayState extends MusicBeatState
 				monika2.frames = montex;
 				monika2.animation.addByPrefix('idle', "Monisus", 22);
 				monika2.setGraphicSize(Std.int(1.2));
-				monika2.scale.y = 0.8;
-				monika2.scale.x = 0.8;
+				monika2.scale.y = 0.7;
+				monika2.scale.x = 0.7;
 		        //monika2.animation.play('idle');
 				monika2.updateHitbox();
 				monika2.scrollFactor.set(0.9, 0.9);
@@ -556,7 +556,8 @@ class PlayState extends MusicBeatState
 				GF_X += 115;
 				GF_Y += 80;
 				DAD_X += 100;
-				DAD_Y += 50;
+				//DAD_Y -= 230;
+                                DAD_Y -= 0;
 
 			default:
 				defaultCamZoom = 0.9;

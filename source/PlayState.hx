@@ -265,7 +265,7 @@ class PlayState extends MusicBeatState
 	var saness:FlxSprite = new FlxSprite(760, 320);
 	var stevee:FlxSprite = new FlxSprite(1000, 200);
 	var monika2:FlxSprite = new FlxSprite(-200, 125);
-	var lolsussy:FlxSprite = new FlxSprite(1550, 300);
+	var lolsussy:FlxSprite = new FlxSprite(1580, 300);
 	
 	var animToPlay:String = '';
 

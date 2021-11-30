@@ -384,9 +384,15 @@ class CreditsState extends MusicBeatState
 	private var iconArray:Array<AttachedSprite> = [];
 
 	private static var creditsStuff:Array<Dynamic> = [ //Name - Icon name - Description - Link - BG Color
-		['Graphex Engine by'],
-		['XaleTheCat','xale','Lead Developer of Grafex Engine','https://github.com/XaleTheCat', 0xFFf7a300],
-		['PurpleSnake','snake','Additional developer of Grafex Engine','https://github.com/PurpleSSSnake', 0xFF6475F3],
+		['vs WonderNope Team'],
+		['WonderNope','xale','Director, Scenarist','https://www.youtube.com/channel/UC2v3lZHoWcm6g9SbiBT2PKQ', 0xFFf7a300],
+		['Yamahearted','xale','Lead Coder','https://www.youtube.com/Yamahearted', 0xFFf7a300],
+		['Samsa','xale','Main Artist','https://www.instagram.com/samsa_ie/', 0xFFf7a300],
+		['Bluzck','xale','Perfomer Artist','https://twitter.com/bluzck', 0xFFf7a300],
+		['Not Georg','xale','Animator','https://twitter.com/VolkovGeorg', 0xFFf7a300],
+		['Mayonez','xale','Charter','https://www.youtube.com/channel/UC0BRPHsYhr7kvB7NG-WQrrg', 0xFFf7a300],
+		['Xale','xale','Lead Coder','https://github.com/XaleTheCat', 0xFFf7a300],
+		['PurpleSnake','snake','Additional Coder','https://github.com/PurpleSSSnake', 0xFF6475F3],
 		[''],
 		['Psych Engine Team'],
 		['Shadow Mario','shadowmario','Main Programmer of Psych Engine','https://twitter.com/Shadow_Mario_',0xFFFFDD33],

@@ -347,7 +347,7 @@ class PlayState extends MusicBeatState
 				bg.loadGraphic(Paths.image("justgmodlandscape", 'week1'));
 				bg.setGraphicSize(Std.int(bg.width * 1.1));
 				bg.updateHitbox();
-				bg.scrollFactor.set(0.9, 0.9);
+				bg.scrollFactor.set(1, 1);
 				bg.antialiasing = true;
 				add(bg);
 
@@ -465,7 +465,6 @@ class PlayState extends MusicBeatState
 				saness.updateHitbox();
 				saness.scrollFactor.set(0.9, 0.9);
 				saness.antialiasing = true;
-				add(saness);
 
 				//var stevee:FlxSprite = new FlxSprite(1020, 200);
 				var sttex = Paths.getSparrowAtlas('dudes/Steve', 'week1');
@@ -480,6 +479,7 @@ class PlayState extends MusicBeatState
 				stevee.scrollFactor.set(0.9, 0.9);
 				stevee.antialiasing = true;
 				add(stevee);
+				add(saness);
 
 			case 'my goal':
 				curStage = 'gmodday';
@@ -636,7 +636,8 @@ class PlayState extends MusicBeatState
 		add(foregroundGroup);
 
 		var lowercaseSong:String = SONG.song.toLowerCase();
-		var file:String = Paths.txt(lowercaseSong + '/Dialogues/' + lang + 'Dialogue');
+		var file:String = Paths.txt(lowercaseSong + '/' + lowercaseSong + 'Dialogue');
+		//var file:String = Paths.txt(lowercaseSong + '/Dialogues/' + lang + 'Dialogue');
 		if (OpenFlAssets.exists(file)) {
 			dialogue = CoolUtil.coolTextFile(file);
 		}
@@ -765,11 +766,23 @@ class PlayState extends MusicBeatState
 		healthBarWN.visible = false;
 		add(healthBarWN);
 
+		healthBarHigh = new AttachedSprite('healthBarHigh');
+		healthBarHigh.y = FlxG.height * 0.89;
+		if(ClientPrefs.downScroll) healthBarHigh.y = 0.11 * FlxG.height;
+		healthBarHigh.screenCenter(X);
+		healthBarHigh.scrollFactor.set();
+		healthBarHigh.visible = !ClientPrefs.hideHud;
+		healthBarHigh.xAdd = -4;
+		healthBarHigh.yAdd = -4;
+		add(healthBarHigh);
+		
+		healthBarHigh.cameras = [camHUD];
+
 
 		switch (SONG.song.toLowerCase()) // Made this cuz this black things looks bad with pixel arrows lol - Xale
 		{
 			case 'key point':
-				healthBarWN.visible = true;
+				healthBarWN.visible = true;				
 		}
 
 
@@ -941,9 +954,9 @@ class PlayState extends MusicBeatState
 					});
 				case 'senpai' | 'roses' | 'thorns':
 					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
+						schoolIntro(doof);
+				case 'guests' | 'my goal' | 'key point':
 					schoolIntro(doof);
-				case 'fandomer' | 'my-goal' | 'key':
-					dialogueIntro(dialogue, 'wn-dialogue');
 
 				default:
 					startCountdown();
@@ -1022,103 +1035,103 @@ class PlayState extends MusicBeatState
 	var dialogueCount:Int = 0;
 
 	public function dialogueIntro(dialogue:Array<String>, ?song:String = null):Void
-	{
-		inCutscene = true;
-		CoolUtil.precacheSound('dialogue');
-		CoolUtil.precacheSound('dialogueClose');
-		var doof:NormalDialogueBox = new NormalDialogueBox(dialogue, song);
-		doof.scrollFactor.set();
-		doof.finishThing = startCountdown;
-		doof.nextDialogueThing = startNextDialogue;
-		doof.cameras = [camHUD];
-		add(doof);
-	}
-
-	function schoolIntro(?dialogueBox:PixelDialogueBox):Void
-	{
-		inCutscene = true;
-		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-		black.scrollFactor.set();
-		add(black);
-
-		var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
-		red.scrollFactor.set();
-
-		var senpaiEvil:FlxSprite = new FlxSprite();
-		senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
-		senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
-		senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
-		senpaiEvil.scrollFactor.set();
-		senpaiEvil.updateHitbox();
-		senpaiEvil.screenCenter();
-		senpaiEvil.x += 300;
-
-		if (SONG.song.toLowerCase() == 'roses' || SONG.song.toLowerCase() == 'thorns')
 		{
-			remove(black);
-
-			if (SONG.song.toLowerCase() == 'thorns')
-			{
-				add(red);
-				camHUD.visible = false;
-			}
+			inCutscene = true;
+			CoolUtil.precacheSound('dialogue');
+			CoolUtil.precacheSound('dialogueClose');
+			var doof:NormalDialogueBox = new NormalDialogueBox(dialogue, song);
+			doof.scrollFactor.set();
+			doof.finishThing = startCountdown;
+			doof.nextDialogueThing = startNextDialogue;
+			doof.cameras = [camHUD];
+			add(doof);
 		}
-
-		new FlxTimer().start(0.3, function(tmr:FlxTimer)
+	
+		function schoolIntro(?dialogueBox:PixelDialogueBox):Void
 		{
-			black.alpha -= 0.15;
-
-			if (black.alpha > 0)
+			inCutscene = true;
+			var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+			black.scrollFactor.set();
+			add(black);
+	
+			var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFFff1b31);
+			red.scrollFactor.set();
+	
+			var senpaiEvil:FlxSprite = new FlxSprite();
+			senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
+			senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
+			senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
+			senpaiEvil.scrollFactor.set();
+			senpaiEvil.updateHitbox();
+			senpaiEvil.screenCenter();
+			senpaiEvil.x += 300;
+	
+			if (SONG.song.toLowerCase() == 'roses' || SONG.song.toLowerCase() == 'thorns')
 			{
-				tmr.reset(0.3);
-			}
-			else
-			{
-				if (dialogueBox != null)
+				remove(black);
+	
+				if (SONG.song.toLowerCase() == 'thorns')
 				{
-					if (SONG.song.toLowerCase() == 'thorns')
-					{
-						add(senpaiEvil);
-						senpaiEvil.alpha = 0;
-						new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
-						{
-							senpaiEvil.alpha += 0.15;
-							if (senpaiEvil.alpha < 1)
-							{
-								swagTimer.reset();
-							}
-							else
-							{
-								senpaiEvil.animation.play('idle');
-								FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function()
-								{
-									remove(senpaiEvil);
-									remove(red);
-									FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function()
-									{
-										add(dialogueBox);
-										camHUD.visible = true;
-									}, true);
-								});
-								new FlxTimer().start(3.2, function(deadTime:FlxTimer)
-								{
-									FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
-								});
-							}
-						});
-					}
-					else
-					{
-						add(dialogueBox);
-					}
+					add(red);
+					camHUD.visible = false;
+				}
+			}
+	
+			new FlxTimer().start(0.3, function(tmr:FlxTimer)
+			{
+				black.alpha -= 0.15;
+	
+				if (black.alpha > 0)
+				{
+					tmr.reset(0.3);
 				}
 				else
-					startCountdown();
-
-				remove(black);
-			}
-		});
-	}
+				{
+					if (dialogueBox != null)
+					{
+						if (SONG.song.toLowerCase() == 'thorns')
+						{
+							add(senpaiEvil);
+							senpaiEvil.alpha = 0;
+							new FlxTimer().start(0.3, function(swagTimer:FlxTimer)
+							{
+								senpaiEvil.alpha += 0.15;
+								if (senpaiEvil.alpha < 1)
+								{
+									swagTimer.reset();
+								}
+								else
+								{
+									senpaiEvil.animation.play('idle');
+									FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function()
+									{
+										remove(senpaiEvil);
+										remove(red);
+										FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function()
+										{
+											add(dialogueBox);
+											camHUD.visible = true;
+										}, true);
+									});
+									new FlxTimer().start(3.2, function(deadTime:FlxTimer)
+									{
+										FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
+									});
+								}
+							});
+						}
+						else
+						{
+							add(dialogueBox);
+						}
+					}
+					else
+						startCountdown();
+	
+					remove(black);
+				}
+			});
+		}
 
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
@@ -2257,9 +2270,6 @@ class PlayState extends MusicBeatState
 										
 
 									case 3:
-										// Does nothing - Xale
-
-									case 4: // Heal note
 										// Does nothing - Xale
 
 									case 5: // Bullet note

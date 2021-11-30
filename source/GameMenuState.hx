@@ -392,7 +392,7 @@ class CreditsState extends MusicBeatState
 		['Not Georg','georg','Animator','https://twitter.com/VolkovGeorg', 0xFF9ab389],
 		['Mayonez','mayo','Charter','https://www.youtube.com/channel/UC0BRPHsYhr7kvB7NG-WQrrg', 0xFFf0e5b1],
 		['Xale','xale','Gameplay Coder','https://github.com/XaleTheCat', 0xFFec903f],
-		['PurpleSnake','snake','Additional Coder','https://github.com/PurpleSSSnake', 0xFF6475F3],
+		['PurpleSnake','snake','Additional Coder','https://github.com/PurpleSSSnake', 0xFF652BB9],
 		[''],
 		['Psych Engine Team'],
 		['Shadow Mario','shadowmario','Main Programmer of Psych Engine','https://twitter.com/Shadow_Mario_',0xFFFFDD33],

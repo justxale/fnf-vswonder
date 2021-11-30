@@ -93,7 +93,7 @@ class MainMenuState extends MusicBeatState
 
 		TitleState.isLogoLoaded = false;
 		#if desktop
-		DiscordClient.changePresence("In the Menu", null);
+		DiscordClient.changePresence("Main Menu", null);
 		#end
 
 		camGame = new FlxCamera();
@@ -417,7 +417,7 @@ class CreditsState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Credits Menu", null);
+		DiscordClient.changePresence("Credits Menu", null);
 		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -592,7 +592,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		#if desktop
-		DiscordClient.changePresence("In the Freeplay Menu", null);
+		DiscordClient.changePresence("Freeplay Menu", null);
 		#end
 
 		for (i in 1...WeekData.songsNames.length) {
@@ -1003,7 +1003,7 @@ class StoryMenuState extends MusicBeatState
 		add(grpLocks);
 
 		#if desktop
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("Story Menus", null);
 		#end
 
 		for (i in 0...WeekData.songsNames.length)
@@ -1322,7 +1322,7 @@ class OptionsState extends MusicBeatState
 
 	override function create() {
 		#if desktop
-		DiscordClient.changePresence("In the Options Menu", null);
+		DiscordClient.changePresence("Options Menu", null);
 		#end
 
 		Application.current.window.title = 'Options';

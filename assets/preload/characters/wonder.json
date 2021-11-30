@@ -76,7 +76,7 @@
 	"image": "characters/wonder",
 	"position": [
 		0,
-		40
+		80
 	],
 	"healthicon": "wonder",
 	"flip_x": false,
@@ -85,5 +85,5 @@
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 1.1
 }

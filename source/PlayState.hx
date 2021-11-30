@@ -254,9 +254,9 @@ class PlayState extends MusicBeatState
 	public var draining:Bool = false;
 	public var watchingDialogue:Bool = false;
 
-	//im wonder
+	//im wonder it woks normaly
 	var agents:FlxSprite = new FlxSprite(1310, 300);
-	var monika:FlxSprite = new FlxSprite(-390, 115);
+	var monika:FlxSprite = new FlxSprite(-410, 115);
 	var freddy:FlxSprite = new FlxSprite(-310, 110);
 	var wtf:FlxSprite = new FlxSprite(680, 130);
 	var pearl:FlxSprite = new FlxSprite(0, 100);
@@ -265,6 +265,7 @@ class PlayState extends MusicBeatState
 	var saness:FlxSprite = new FlxSprite(760, 320);
 	var stevee:FlxSprite = new FlxSprite(1000, 200);
 	var monika2:FlxSprite = new FlxSprite(-200, 125);
+	var lolsussy:FlxSprite = new FlxSprite(1550, 500);
 	
 	var animToPlay:String = '';
 
@@ -523,16 +524,35 @@ class PlayState extends MusicBeatState
 				GF_X -= 10;
 				GF_Y -= 0;
 				DAD_X += 100;
-				DAD_Y += 70;
+				DAD_Y -= 30;
 
+				var agtexsus = Paths.getSparrowAtlas('dudes/Lol_scareed', 'week1');
+				
+				lolsussy.frames = agtexsus;
+				lolsussy.animation.addByPrefix('idle', "1 agent образец 1", 24);
+				lolsussy.scale.y = 0.8;
+				lolsussy.scale.x = 0.8;
+				lolsussy.animation.play('idle');
+				lolsussy.updateHitbox();
+				lolsussy.scrollFactor.set(0.9, 0.9);
+				lolsussy.antialiasing = true;
+				add(lolsussy);
+				
+				
+				
+				
+				
+				
+				
+				
 				//var monika2:FlxSprite = new FlxSprite(-380, 110);
 				var montex = Paths.getSparrowAtlas('dudes/Monikak', 'week1');
 
 				monika2.frames = montex;
 				monika2.animation.addByPrefix('idle', "Monisus", 22);
 				monika2.setGraphicSize(Std.int(1.2));
-				monika2.scale.y = 0.8;
-				monika2.scale.x = 0.8;
+				monika2.scale.y = 0.65;
+				monika2.scale.x = 0.65;
 		        //monika2.animation.play('idle');
 				monika2.updateHitbox();
 				monika2.scrollFactor.set(0.9, 0.9);
@@ -540,7 +560,8 @@ class PlayState extends MusicBeatState
 				add(monika2);
 
 			case 'key point':
-				var bg:FlxSprite = new FlxSprite(-570, -300);
+				
+			    var bg:FlxSprite = new FlxSprite(-570, -300);
 
 				bg.loadGraphic(Paths.image("OMG DOORS", 'week1'));
 				bg.setGraphicSize(Std.int(bg.width * 1.1));
@@ -551,12 +572,16 @@ class PlayState extends MusicBeatState
 
 				defaultCamZoom = 0.7;
 
+			
+				
+				
 				BF_X += 330;
 				BF_Y += 160;
 				GF_X += 115;
 				GF_Y += 80;
 				DAD_X += 100;
-				DAD_Y += 50;
+				//DAD_Y -= 230;
+                                DAD_Y -= 0;
 
 			default:
 				defaultCamZoom = 0.9;
@@ -3646,9 +3671,10 @@ class PlayState extends MusicBeatState
 
 				
 				case 'my goal':
-				
+					
 				        monika2.animation.play('idle', true);
-				
+				        lolsussy.animation.play('idle', true);
+					 
 				    if (curBeat >= 96)
 						{
 							beatPercent = 1;

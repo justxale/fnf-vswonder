@@ -398,10 +398,10 @@ class CreditsState extends MusicBeatState
 
 	private static var creditsStuff:Array<Dynamic> = [ //Name - Icon name - Description - Link - BG Color
 		['vs WonderNope Team'],
-		['WonderNope','wondernope','Director, Scenarist','https://www.youtube.com/channel/UC2v3lZHoWcm6g9SbiBT2PKQ', 0xFFf7a300],
+		['WonderNope','wondernope','Director, Scenarist','https://www.youtube.com/channel/UC2v3lZHoWcm6g9SbiBT2PKQ', 0xFFc55edb],
 		['Yamahearted','yama','Composer','https://www.youtube.com/Yamahearted', 0xFF85a6fd],
-		['Samsa','samsa','Main Artist','https://www.instagram.com/samsa_ie/', 0xFFc090ac],
-		['Bluzck','xale','Perfomer Artist','https://twitter.com/bluzck', 0xFFf7a300],
+		['Samsa','samsa','Perfomer Artist','https://www.instagram.com/samsa_ie/', 0xFFc090ac],
+		['Bluzck','bluzck','Additional Artist','https://twitter.com/bluzck', 0xFF6a0000],
 		['Not Georg','georg','Animator','https://twitter.com/VolkovGeorg', 0xFF9ab389],
 		['Mayonez','mayo','Charter','https://www.youtube.com/channel/UC0BRPHsYhr7kvB7NG-WQrrg', 0xFFf0e5b1],
 		['Xale','xale','Gameplay Coder','https://github.com/XaleTheCat', 0xFFec903f],

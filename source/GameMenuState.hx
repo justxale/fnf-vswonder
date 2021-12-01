@@ -774,23 +774,31 @@ class FreeplayState extends MusicBeatState
 
 			FlxTween.tween(FlxG.camera, {zoom: 1.1}, 1, {ease: FlxEase.expoOut});
 			FlxTween.tween(bg, {angle: 5}, 1, {ease: FlxEase.expoOut});
-		    FlxG.sound.play(Paths.sound('confirmMenu'));
+			FlxTween.tween(FlxG.sound.music, {volume: 0}, 1.5, {ease: FlxEase.expoOut});
+		    
+			FlxG.sound.play(Paths.sound('confirmMenu'));
 			
-			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
-
-			PlayState.storyWeek = songs[curSelected].week;
-			trace('CURRENT WEEK: ' + WeekData.getCurrentWeekNumber());
+			
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
 			
 			new FlxTimer().start(1.4, function(tmr:FlxTimer)
 				{
+					PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			        PlayState.isStoryMode = false;
+			        PlayState.storyDifficulty = curDifficulty;
+      
+			        PlayState.storyWeek = songs[curSelected].week;
+			        trace('CURRENT WEEK: ' + WeekData.getCurrentWeekNumber());
+					
+			        FlxG.sound.music.volume = 0;
+					
+			        destroyFreeplayVocals();
+					
 					LoadingState.loadAndSwitchState(new PlayState());
 
-				});
+			});
 			
 			
 			

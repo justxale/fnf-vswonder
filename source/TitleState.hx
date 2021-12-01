@@ -264,7 +264,8 @@ class TitleState extends MusicBeatState
 			FlxG.camera.flash(FlxColor.WHITE, 0.4);
 			FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
-                        FlxTween.tween(FlxG.camera, {y: FlxG.height}, 2, {ease: FlxEase.expoIn, startDelay: -0.1});
+                       FlxTween.tween(logoBl,{y: -580}, 1.3, {ease: FlxEase.expoInOut});
+                       FlxTween.tween(FlxG.camera, {y: FlxG.height}, 2, {ease: FlxEase.expoIn, startDelay: -0.1});
 			
                         transitioning = true;
 
@@ -385,7 +386,7 @@ class TitleState extends MusicBeatState
 		{ 
 			
 			FlxG.camera.zoom = 5.3;
-			FlxTween.tween(FlxG.camera,{zoom: 1}, 0.8, {ease: FlxEase.expoInOut});
+			FlxTween.tween(FlxG.camera,{zoom: 1}, 1, {ease: FlxEase.expoInOut});
 			
 			FlxTween.tween(logoBl,{y: -80}, 1.8, {ease: FlxEase.expoInOut});
 			

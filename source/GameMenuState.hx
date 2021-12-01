@@ -173,9 +173,9 @@ class MainMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if (controls.UI_LEFT_P)
-			changeDiff(-1);
+			//changeDiff(-1);
 		if (controls.UI_RIGHT_P)
-			changeDiff(1);
+			//changeDiff(1);
 
 		if (FlxG.sound.music.volume < 0.8)
 		{
@@ -240,6 +240,7 @@ class MainMenuState extends MusicBeatState
 					}
 					else
 					{
+						FlxTween.tween(spr, {y: 280}, 0.6, {ease: FlxEase.expoOut});
 						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 						{
 							var daChoice:String = optionShit[curSelected];

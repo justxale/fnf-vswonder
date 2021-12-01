@@ -299,16 +299,23 @@ class NormalDialogueBox extends FlxSpriteGroup
 				char.flipX = !char.flipX;
 
 				// THIS IS EXAMPLE!!
-			/*case 'CHAR':
-				char.frames = Paths.getSparrowAtlas('dialogue/FILENAME');
-				char.animation.addByPrefix('talkIdle', 'NAME IN XML', 24, true); //Dialogue ended
-				char.animation.addByPrefix('talk', 'NAME IN XML', 24, true); //During dialogue
-				char.animation.addByPrefix('angryIdle', 'NAME IN XML', 24, true); //Dialogue ended, but CHAR is ANGRY lmao
-				char.animation.addByPrefix('angry', 'NAME IN XML', 24, true); //During dialogue, but CHAR is ANGRY lmao
-				char.animation.addByPrefix('unamusedIdle', 'NAME IN XML', 24, true); //Dialogue ended, but CHAR is UNAMUSED lmao
-				char.animation.addByPrefix('unamused', 'NAME IN XML', 24, true); //During dialogue, but CHAR is UNAMUSED lmao
-				char.y -= 140;*/
-				// Sample is by Xale, Script is by ShadowMario
+			case 'nope':
+				char.frames = Paths.getSparrowAtlas('dialogue/Whachu_know_about_roooolling_down_in_a_deeeep');
+				char.animation.addByPrefix('talkIdle', 'Wonder Idle', 24, true); //Dialogue ended
+
+				char.y -= 140;
+			
+			case 'wonder':
+				char.frames = Paths.getSparrowAtlas('dialogue/wonder');
+				char.animation.addByPrefix('talkIdle', 'Idle', 24, true); //During dialogue
+
+				char.y -= 140;
+			
+			case 'wondernope':
+				char.frames = Paths.getSparrowAtlas('dialogue/WonderNope');
+				char.animation.addByPrefix('talkIdle', 'Idle bruh', 24, true); //During dialogue
+
+				char.y -= 140;
 		}
 		char.animation.play('talkIdle', true);
 	}

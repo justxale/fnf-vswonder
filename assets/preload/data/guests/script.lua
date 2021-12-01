@@ -1,9 +1,9 @@
 
 local xx = 520;
 local yy = 450;
-local xx2 = 1290;
+local xx2 = 1270;
 local yy2 = 650;
-local ofs = 60;
+local ofs = 30;
 local followchars = true;
 local del = 0;
 local del2 = 0;

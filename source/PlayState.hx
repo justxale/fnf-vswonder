@@ -985,6 +985,10 @@ class PlayState extends MusicBeatState
 							});
 						});
 					});
+
+				case 'guests' | 'my goal' | 'key point':
+					dialogueIntro(dialogue);
+
 				default:
 					startCountdown();
 			}

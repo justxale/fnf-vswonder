@@ -26,7 +26,7 @@ class MenuCharacter extends FlxSprite
 		antialiasing = ClientPrefs.globalAntialiasing;
 
 		switch(character) {
-			case '':
+			case 'noone':
                           
             case 'bf':
 				frames = Paths.getSparrowAtlas('menucharacters/Menu_BF');
@@ -40,6 +40,10 @@ class MenuCharacter extends FlxSprite
 			case 'dad':
 				frames = Paths.getSparrowAtlas('menucharacters/Menu_Dad');
 				animation.addByPrefix('idle', "M Dad Idle", 24);
+			
+			case 'wn':
+				frames = Paths.getSparrowAtlas('menucharacters/WonderNope_Menu');
+				animation.addByPrefix('idle', "Idle menu", 24);
 		}
 		animation.play('idle');
 		updateHitbox();
@@ -50,6 +54,14 @@ class MenuCharacter extends FlxSprite
 
 			case 'gf':
 				offset.set(0, -25);
+			
+			case 'wn':
+				scale.set(0.45, 0.45);
+				offset.set(150, 200);
+			
+			case 'dad':
+				scale.set(1, 1);
+				offset.set(0, 0);
 		}
 	}
 }

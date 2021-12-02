@@ -173,9 +173,9 @@ class MainMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if (controls.UI_LEFT_P)
-			changeDiff(-1);
+			//changeDiff(-1);
 		if (controls.UI_RIGHT_P)
-			changeDiff(1);
+			//changeDiff(1);
 
 		if (FlxG.sound.music.volume < 0.8)
 		{
@@ -240,6 +240,7 @@ class MainMenuState extends MusicBeatState
 					}
 					else
 					{
+						FlxTween.tween(spr, {y: 280}, 0.6, {ease: FlxEase.expoOut});
 						FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 						{
 							var daChoice:String = optionShit[curSelected];
@@ -774,23 +775,31 @@ class FreeplayState extends MusicBeatState
 
 			FlxTween.tween(FlxG.camera, {zoom: 1.1}, 1, {ease: FlxEase.expoOut});
 			FlxTween.tween(bg, {angle: 5}, 1, {ease: FlxEase.expoOut});
-		    FlxG.sound.play(Paths.sound('confirmMenu'));
+			FlxTween.tween(FlxG.sound.music, {volume: 0}, 1.5, {ease: FlxEase.expoOut});
+		    
+			FlxG.sound.play(Paths.sound('confirmMenu'));
 			
-			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
-
-			PlayState.storyWeek = songs[curSelected].week;
-			trace('CURRENT WEEK: ' + WeekData.getCurrentWeekNumber());
+			
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
 			
 			new FlxTimer().start(1.4, function(tmr:FlxTimer)
 				{
+					PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			        PlayState.isStoryMode = false;
+			        PlayState.storyDifficulty = curDifficulty;
+      
+			        PlayState.storyWeek = songs[curSelected].week;
+			        trace('CURRENT WEEK: ' + WeekData.getCurrentWeekNumber());
+					
+			        FlxG.sound.music.volume = 0;
+					
+			        destroyFreeplayVocals();
+					
 					LoadingState.loadAndSwitchState(new PlayState());
 
-				});
+			});
 			
 			
 			

@@ -863,7 +863,7 @@ class PlayState extends MusicBeatState
 		loseVin.updateHitbox();
 		loseVin.screenCenter();
 		loseVin.visible = true;
-		loseVin.alpha = 0;
+		loseVin.alpha = 0.6;
 		add(loseVin);
 
 		curStatic.frames = Paths.getSparrowAtlas('effects/purStatic');
@@ -1982,10 +1982,10 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		loseVin.alpha = 1 - (health / 2);
+		
 
 		if(healthBar.percent < 30)
-			FlxTween.tween(badLoseVin, {alpha: 0.7}, 1, {ease: FlxEase.linear});
+			FlxTween.tween(badLoseVin, {alpha: 1}, 1, {ease: FlxEase.linear});
 		else
 			FlxTween.tween(badLoseVin, {alpha: 0}, 1, {ease: FlxEase.linear});
 

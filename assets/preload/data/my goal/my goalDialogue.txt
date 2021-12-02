@@ -1,0 +1,13 @@
+wn:bf
+:0:wonder:0.05:0:Okay, guys. The party's over.
+:0:bf:0.05:0:bpebbpeespppskeedps
+:0:wonder:0.05:0:Heh.... 
+:0:wonder:0.05:0:You are immortal creatures... 
+:0:wonder:0.05:0:You roam the universes and make\neveryone dance to your tune.
+:0:wonder:0.05:0:Sounds fun.
+:0:wonder:0.05:0:But that's not the point. I have a goal.\nMy goal.
+:0:wonder:0.05:0:And YOU are the ones who will help me\nachieving it.
+:0:wonder:0.05:0:It's a deal. I'll give you heat,\nand you'll give me...
+:0:gf:0.05:0:Void node. You sound fun as well.
+:0:wonder:0.05:0:I know that I won't win because of them.\nBut that doesn't mean I am not going to try.
+:0:bf:0.05:0:The FitnessGram™ Pacer Test is\na multistage aerobic!

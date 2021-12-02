@@ -292,30 +292,20 @@ class NormalDialogueBox extends FlxSpriteGroup
 	// This is where you add your characters, ez pz
 	function addCharacter(char:FlxSprite, name:String) {
 		switch(name) {
-			case 'bf':
-				char.frames = Paths.getSparrowAtlas('dialogue/BF_Dialogue');
-				char.animation.addByPrefix('talkIdle', 'BFTalk', 24, true); //Dialogue ended
-				char.animation.addByPrefix('talk', 'bftalkloop', 24, true); //During dialogue
-				char.flipX = !char.flipX;
-
-				// THIS IS EXAMPLE!!
-			case 'nope':
-				char.frames = Paths.getSparrowAtlas('dialogue/Whachu_know_about_roooolling_down_in_a_deeeep');
-				char.animation.addByPrefix('talkIdle', 'Wonder Idle', 24, true); //Dialogue ended
-
-				char.y -= 140;
-			
-			case 'wonder':
-				char.frames = Paths.getSparrowAtlas('dialogue/wonder');
-				char.animation.addByPrefix('talkIdle', 'Idle', 24, true); //During dialogue
-
-				char.y -= 140;
-			
-			case 'wondernope':
-				char.frames = Paths.getSparrowAtlas('dialogue/WonderNope');
-				char.animation.addByPrefix('talkIdle', 'Idle bruh', 24, true); //During dialogue
-
-				char.y -= 140;
+			case 'wn':
+				char.frames = Paths.getSparrowAtlas('dialogue/Dialogues');
+				char.animation.addByPrefix('talkIdle', 'nope', 24, true); 
+				char.animation.addByPrefix('talk', 'nope', 24, true);
+				char.animation.addByPrefix('bf', 'bf', 24, true);
+				char.animation.addByPrefix('bfIdle', 'bf', 24, true);
+				char.animation.addByPrefix('gf', 'gf', 24, true);
+				char.animation.addByPrefix('gfIdle', 'gf', 24, true);
+				char.animation.addByPrefix('survie', 'survie', 24, true); 
+				char.animation.addByPrefix('survieIdle', 'survie', 24, true); 
+				char.animation.addByPrefix('wonder', 'wonder', 24, true); 
+				char.animation.addByPrefix('wonderIdle', 'wonder', 24, true); 
+				char.animation.addByPrefix('wn', 'wn', 24, true); 
+				char.animation.addByPrefix('wnIdle', 'wn', 24, true); 
 		}
 		char.animation.play('talkIdle', true);
 	}

@@ -932,13 +932,7 @@ class StoryMenuState extends MusicBeatState
 	// defaults to True
 	public static var weekUnlocked:Array<Bool> = [
 		true,	//Tutorial
-		true,	//Week 1
-		true,	//Week 2
-		true,	//Week 3
-		true,	//Week 4
-		true,	//Week 5
-		true,   //Week 6
-		true	//Week 7
+		true
 	];
 
 	//It works like this:

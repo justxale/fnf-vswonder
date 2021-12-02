@@ -1063,8 +1063,27 @@ class PlayState extends MusicBeatState
 			doof.cameras = [camHUD];
 			add(doof);
 		}
+
+	public function dialogueOutro(dialogue:Array<String>, ?song:String = null):Void
+		{
+			inCutscene = true;
+			CoolUtil.precacheSound('dialogue');
+			CoolUtil.precacheSound('dialogueClose');
+			var doof:NormalDialogueBox = new NormalDialogueBox(dialogue, song);
+			doof.scrollFactor.set();
+			doof.finishThing = endOfGame;
+			doof.nextDialogueThing = startNextDialogue;
+			doof.cameras = [camHUD];
+			add(doof);
+		}
+
+	function endOfGame():Void
+		{
+			MusicBeatState.switchState(new StoryMenuState());
+			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+		}
 	
-		function schoolIntro(?dialogueBox:PixelDialogueBox):Void
+	function schoolIntro(?dialogueBox:PixelDialogueBox):Void
 		{
 			inCutscene = true;
 			var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
@@ -1919,7 +1938,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		#if !debug
+		#if debug
 		if (FlxG.keys.justPressed.SEVEN && !endingSong)
 		{
 			persistentUpdate = false;
@@ -2767,8 +2786,7 @@ class PlayState extends MusicBeatState
 				finishCallback();
 			});
 		}
-	}
-
+	}	
 
 	var transitioning = false;
 	function endSong():Void
@@ -2780,9 +2798,8 @@ class PlayState extends MusicBeatState
 		endingSong = true;
 		camZooming = false;
 		inCutscene = false;
-                isCutscene = false;
-		
-                 updateTime = false;
+        isCutscene = false;
+        updateTime = false;
 
 		deathCounter = 0;
 		seenCutscene = false;
@@ -2800,13 +2817,30 @@ class PlayState extends MusicBeatState
 
 			if (storyPlaylist.length <= 0)
 			{
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-
+				
 				transIn = FlxTransitionableState.defaultTransIn;
 				transOut = FlxTransitionableState.defaultTransOut;
 
-				MusicBeatState.switchState(new StoryMenuState());
+				switch(SONG.song.toLowerCase())
+				{		
+					case 'key point':
+							var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
+							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+							blackShit.scrollFactor.set();
+							add(blackShit);
+							
+							var file:String = Paths.txt(SONG.song.toLowerCase() + '/' + 'endDialogue');
+							//var file:String = Paths.txt(lowercaseSong + '/Dialogues/' + lang + 'Dialogue');
+							if (OpenFlAssets.exists(file)) {
+								dialogue = CoolUtil.coolTextFile(file);
+							}
+							dialogueOutro(dialogue);
 
+					default:
+						MusicBeatState.switchState(new StoryMenuState());
+						FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				}
+				
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
 				if (SONG.validScore)
@@ -2856,12 +2890,17 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					if(sys.FileSystem.exists(Paths.video(cutsceneFile))) {
-						video.playMP4(Paths.video(SONG.song.toLowerCase() + 'Cutscene'), new PlayState());
-						trace('File found');
+					switch(SONG.song.toLowerCase())
+					{						
+						default:
+							if(sys.FileSystem.exists(Paths.video(cutsceneFile))) {
+								video.playMP4(Paths.video(SONG.song.toLowerCase() + 'Cutscene'), new PlayState());
+								trace('File found');
+							}
+							else
+								LoadingState.loadAndSwitchState(new PlayState());
 					}
-					else
-						LoadingState.loadAndSwitchState(new PlayState());
+					
 				}
 			}
 		}

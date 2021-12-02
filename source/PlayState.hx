@@ -1919,6 +1919,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		#if !debug
 		if (FlxG.keys.justPressed.SEVEN && !endingSong)
 		{
 			persistentUpdate = false;
@@ -1929,6 +1930,7 @@ class PlayState extends MusicBeatState
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
 		}
+		#end
 
 		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
 		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
@@ -3934,78 +3936,5 @@ class PlayState extends MusicBeatState
 					}
 				});
 	
-		}
-	
-	function guestsDialogue():Void
-		{	
-			dialogueWindow.loadGraphic(Paths.image("dialogueWindow", 'shared'));
-			dialogueWindow.setGraphicSize(Std.int(dialogueWindow.width * 2.3));	
-			dialogueWindow.updateHitbox();	
-			dialogueWindow.screenCenter(X);
-			dialogueWindow.y = 450;		
-			dialogueWindow.scrollFactor.set(1, 1);
-			dialogueWindow.antialiasing = true;
-			dialogueWindow.alpha = 0;
-			add(dialogueWindow);
-
-			nFaceNormal1.loadGraphic(Paths.image("emote/NopeNormal1", 'shared'));
-			nFaceNormal1.scale.y = 0.4;
-			nFaceNormal1.scale.x = 0.4;
-			nFaceNormal1.y = dialogueWindow.y;
-			nFaceNormal1.x = dialogueWindow.x;
-			nFaceNormal1.updateHitbox();
-			nFaceNormal1.scrollFactor.set(1, 1);
-			nFaceNormal1.antialiasing = true;
-			nFaceNormal1.visible = false;
-			add(nFaceNormal1);
-
-			nFaceNormal3.loadGraphic(Paths.image("emote/NopeNormal3", 'shared'));
-			nFaceNormal3.scale.y = 0.4;
-			nFaceNormal3.scale.x = 0.4;
-			nFaceNormal3.y = dialogueWindow.y;
-			nFaceNormal3.x = dialogueWindow.x;
-			nFaceNormal3.scrollFactor.set(1, 1);
-			nFaceNormal3.updateHitbox();
-			nFaceNormal3.antialiasing = true;
-			nFaceNormal3.visible = false;
-			add(nFaceNormal3);
-
-			survie.loadGraphic(Paths.image("emote/Survie", 'shared'));
-			survie.scale.y = 0.4;
-			survie.scale.x = 0.4;
-			survie.y = dialogueWindow.y + 20;
-			survie.x = dialogueWindow.x + 700;
-			survie.updateHitbox();
-			survie.scrollFactor.set(1, 1);
-			survie.antialiasing = true;
-			survie.visible = false;
-			add(survie);
-
-			survie.cameras = [camHUD];
-			nFaceNormal1.cameras = [camHUD];
-			nFaceNormal3.cameras = [camHUD];
-			dialogueWindow.cameras = [camHUD];
-			bfIcon.cameras = [camHUD];
-			gfIcon.cameras = [camHUD];
-
-
-			FlxTween.tween(dialogueWindow, {alpha: 1}, 2, {
-				onComplete: function(twn:FlxTween)
-				{
-					startCountdown();
-				}
-		});
-	}
-
-	function goalDialogue():Void
-		{
-			//if(keysPressed == 1)
-			startCountdown();
-		}
-
-	function keyDialogue():Void
-		{
-			startCountdown();
-
 		}
 }

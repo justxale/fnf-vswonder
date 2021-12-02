@@ -1,0 +1,25 @@
+wondernope:bf
+:0:talk:0.05:0:It works!
+:1:talk:0.05:1:What works exactly?... \nNope.. Are they here?
+:0:talk:0.05:0:Yes! I told you they'll appear!
+:1:talk:0.05:0:Skibip
+:1:talk:0.05:0:So you are the one who summoned us here...
+:1:talk:0.05:0:pipis
+:0:talk:0.05:0:What?
+:1:talk:0.05:0:Metrocop.
+:0:talk:0.05:0:I AM NOT A METROCOP!!!
+:1:talk:0.05:0:We know who you are, Player.\nYou are that one freak that reviews fandoms.
+:0:talk:0.05:0:FANDOM?!
+:0:talk:0.05:0:Sorry, force of habit...
+:1:talk:0.05:0:Hey, Nope, there's someone watching you!
+:0:talk:0.05:0:Wha...
+:0:talk:0.05:0:...
+:0:talk:0.05:0:Hey you! Yeah, that one behind the screen.\nYou know I can see you?
+:0:talk:0.05:0:Can't really make out who you are exactly,\nbut spectators are welcomed.
+:1:talk:0.05:0:Ahem!
+:0:talk:0.05:0:So, how do you do this thing...
+:0:talk:0.05:0:Well.... uh... you either rap battle me... or...\nwhatever.
+:1:talk:0.05:0:You are not so good at it.
+:1:talk:0.05:0:Agreed.
+:0:talk:0.05:0:SHUT UP.
+:0:talk:0.05:0:Fine, whatever, you already know \nwhy are you here so just play your music. \nWe are going to have a blast!

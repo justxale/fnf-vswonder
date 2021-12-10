@@ -863,7 +863,7 @@ class PlayState extends MusicBeatState
 		loseVin.updateHitbox();
 		loseVin.screenCenter();
 		loseVin.visible = true;
-		loseVin.alpha = 0.6;
+		loseVin.alpha = 0.4;
 		add(loseVin);
 
 		curStatic.frames = Paths.getSparrowAtlas('effects/purStatic');

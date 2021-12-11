@@ -342,9 +342,11 @@ class MainMenuState extends MusicBeatState
 				}
 				else
 				{
-					credits.animation.play('idle');
+					settoptions.animation.play('idle');
+
 				}
-			if (FlxG.mouse.overlaps(credits))
+			
+				if (FlxG.mouse.overlaps(credits))
 					{
 						credits.animation.play('selected', true);
 	
@@ -353,15 +355,17 @@ class MainMenuState extends MusicBeatState
 							FlxG.mouse.visible = false;
 							FlxG.mouse.enabled = false;
 							
-							MusicBeatState.switchState(new CreditsState());
+							MusicBeatState.switchState(new OptionsState());
 						
 						}
 					}
 					else
 					{
 						credits.animation.play('idle');
+	
 					}
-			
+
+
 			}
 
 		super.update(elapsed);

@@ -560,7 +560,7 @@ class PlayState extends MusicBeatState
 				add(monika2);
 
 			case 'key point':
-				
+				curStage = 'gmodday';
 			    var bg:FlxSprite = new FlxSprite(-570, -300);
 
 				bg.loadGraphic(Paths.image("OMG DOORS", 'week1'));

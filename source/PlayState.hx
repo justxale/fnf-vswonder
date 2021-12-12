@@ -3324,7 +3324,6 @@ class PlayState extends MusicBeatState
 								boyfriend.playAnim(animToPlay, true);
 								
 								
-
 							if(!note.isSustainNote)
 							{
 								FlxG.sound.play(Paths.sound('snd_power'));
@@ -3332,6 +3331,15 @@ class PlayState extends MusicBeatState
 								spawnNoteSplashOnNote(note);
 							}
 							else health += 0.06; //0.06 + 0.04 = +0.1 (+5%) of HP if you hit a heal sustain note - Xale
+						
+							playerStrums.forEach(function(spr:StrumNote)
+								{
+									if (Math.abs(note.noteData) == spr.ID)
+									{
+										spr.playAnim('confirm', true);
+									}
+								});
+						
 						}
 			
 						note.wasGoodHit = true;
@@ -3671,17 +3679,19 @@ class PlayState extends MusicBeatState
 
 		if (camZooming && curBeat % 2 == 1)
 		    {
-				iconP2.scale.x += 0.15;
-		        iconP2.scale.y += 0.15;
-                iconP1.scale.x += 0.15;
-		        iconP1.scale.y += 0.15;
+				
+		    iconP2.scale.x += 0.15;
+		      iconP2.scale.y += 0.15;
+              iconP1.scale.x += 0.15;
+		      iconP1.scale.y += 0.15;
 		    }
 		if (camZooming && curBeat % 2 == 0)
 			{
-				iconP1.scale.x += 0.3;
-		        iconP1.scale.y += 0.3;
-			    iconP2.scale.x += 0.3;
-		        iconP2.scale.y += 0.3;
+				
+			   iconP1.scale.x += 0.3;
+		       iconP1.scale.y += 0.3;
+			   iconP2.scale.x += 0.3;
+		       iconP2.scale.y += 0.3;
 
             }
 

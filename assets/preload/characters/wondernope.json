@@ -5,10 +5,10 @@
 				0,
 				0
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "idle",
-			"loop": false,
+			"indices": [],
 			"name": "Idle bruh"
 		},
 		{
@@ -16,43 +16,43 @@
 				-9,
 				0
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
-			"loop": false,
+			"indices": [],
 			"name": "Left Lol"
 		},
 		{
 			"offsets": [
-				16,
-				-40
+				26,
+				-50
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
-			"loop": false,
+			"indices": [],
 			"name": "Right Pose"
 		},
 		{
 			"offsets": [
-				35,
-				20
+				86,
+				30
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singUP",
-			"loop": false,
+			"indices": [],
 			"name": "Up Note"
 		},
 		{
 			"offsets": [
-				0,
-				-80
+				50,
+				-90
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
-			"loop": false,
+			"indices": [],
 			"name": "Down note"
 		}
 	],

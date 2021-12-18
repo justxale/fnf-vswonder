@@ -14,12 +14,12 @@
 	<SubTexture name="green0000" x="328" y="10" width="158" height="142"/>
 	<SubTexture name="green0001" x="328" y="10" width="158" height="142"/>
 	<SubTexture name="green0002" x="328" y="10" width="158" height="142"/>
-	<SubTexture name="red hold end0000" x="317" y="326" width="85" height="86"/>
-	<SubTexture name="red hold piece0000" x="412" y="326" width="86" height="91"/>
-        <SubTexture name="blue hold end0000" x="317" y="326" width="85" height="86"/>
-	<SubTexture name="blue hold piece0000" x="412" y="326" width="86" height="91"/>
-        <SubTexture name="green hold end0000" x="317" y="326" width="85" height="86"/>
-	<SubTexture name="green hold piece0000" x="412" y="326" width="86" height="91"/>
-        <SubTexture name="purple hold end0000" x="317" y="326" width="85" height="86"/>
-	<SubTexture name="pruple hold piece0000" x="412" y="326" width="86" height="91"/>
+	<SubTexture name="red hold end0000" x="327" y="326" width="85" height="86"/>
+	<SubTexture name="red hold piece0000" x="422" y="326" width="86" height="91"/>
+        <SubTexture name="blue hold end0000" x="327" y="326" width="85" height="86"/>
+	<SubTexture name="blue hold piece0000" x="422" y="326" width="86" height="91"/>
+        <SubTexture name="green hold end0000" x="327" y="326" width="85" height="86"/>
+	<SubTexture name="green hold piece0000" x="422" y="326" width="86" height="91"/>
+        <SubTexture name="purple hold end0000" x="327" y="326" width="85" height="86"/>
+	<SubTexture name="pruple hold piece0000" x="422" y="326" width="86" height="91"/>
 </TextureAtlas>

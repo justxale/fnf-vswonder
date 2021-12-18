@@ -1,73 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="Heal_Note.png">
+<TextureAtlas imagePath="HealNOTE_assets.png">
 	<!-- Created with Adobe Animate version 20.0.3.25487 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="blue0000" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0001" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0002" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0003" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0004" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0005" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0006" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0007" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0008" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0009" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0010" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0011" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0012" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0013" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0014" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="blue0000" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0001" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0002" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0003" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0004" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0005" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0006" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0007" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0008" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0009" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0010" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0011" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0012" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0013" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red0014" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0000" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0001" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0002" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0003" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0004" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0005" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0006" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0007" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0008" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0009" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0010" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0011" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0012" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0013" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="purple0014" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0000" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0001" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0002" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0003" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0004" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0005" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0006" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0007" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0008" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0009" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0010" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0011" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0012" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0013" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="green0014" x="307" y="10" width="149" height="143"/>
-	<SubTexture name="red hold end0000" x="305" y="322" width="85" height="86"/>
-	<SubTexture name="red hold piece0000" x="400" y="322" width="86" height="91"/>
-	<SubTexture name="blue hold end0000" x="305" y="322" width="85" height="86"/>
-	<SubTexture name="blue hold piece0000" x="400" y="322" width="86" height="91"/>
-	<SubTexture name="green hold end0000" x="305" y="322" width="85" height="86"/>
-	<SubTexture name="green hold piece0000" x="400" y="322" width="86" height="91"/>
-	<SubTexture name="pruple hold end0000" x="305" y="322" width="85" height="86"/>
-	<SubTexture name="purple hold piece0000" x="400" y="322" width="86" height="91"/>
+	<SubTexture name="blue0000" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="blue0001" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="blue0002" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="red0000" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="red0001" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="red0002" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="purple0000" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="purple0001" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="purple0002" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="green0000" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="green0001" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="green0002" x="328" y="10" width="158" height="142"/>
+	<SubTexture name="red hold end0000" x="317" y="326" width="85" height="86"/>
+	<SubTexture name="red hold piece0000" x="412" y="326" width="86" height="91"/>
+        <SubTexture name="blue hold end0000" x="317" y="326" width="85" height="86"/>
+	<SubTexture name="blue hold piece0000" x="412" y="326" width="86" height="91"/>
+        <SubTexture name="green hold end0000" x="317" y="326" width="85" height="86"/>
+	<SubTexture name="green hold piece0000" x="412" y="326" width="86" height="91"/>
+        <SubTexture name="purple hold end0000" x="317" y="326" width="85" height="86"/>
+	<SubTexture name="pruple hold piece0000" x="412" y="326" width="86" height="91"/>
 </TextureAtlas>

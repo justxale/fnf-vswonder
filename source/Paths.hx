@@ -17,6 +17,9 @@ using StringTools;
 
 class Paths
 {
+	static public var currentModDirectory:String = '';
+
+
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 
 	#if MODS_ALLOWED
@@ -195,6 +198,15 @@ class Paths
 		#end
 	}
 
+	static public function modFolders(key:String) {
+		if(currentModDirectory != null && currentModDirectory.length > 0) {
+			var fileToCheck:String = mods(currentModDirectory + '/' + key);
+			if(FileSystem.exists(fileToCheck)) {
+				return fileToCheck;
+			}
+		}
+		return 'mods/' + key;
+	}
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
 		#if MODS_ALLOWED

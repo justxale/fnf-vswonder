@@ -108,6 +108,9 @@ class ChartingState extends MusicBeatState
 
 	var _song:SongVars;
 
+
+	var curEventSelected:Int = 0;
+
 	//WILL BE THE CURRENT / LAST PLACED NOTE
 	var curSelectedNote:Array<Dynamic>;
 
@@ -454,6 +457,10 @@ class ChartingState extends MusicBeatState
 
 	var sectionToCopy:Int = 0;
 
+
+
+	var selectedEventText:FlxText;
+
 	function addSectionUI():Void
 	{
 		var tab_group_section = new FlxUI(null, UI_box);
@@ -599,8 +606,31 @@ class ChartingState extends MusicBeatState
 	var descText:FlxText;
 	function addEventsUI():Void
 	{
+		
 		var tab_group_event = new FlxUI(null, UI_box);
 		tab_group_event.name = 'Events';
+
+		#if LUA_ALLOWED
+		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
+		var directories:Array<String> = [Paths.mods('custom_events/'), Paths.mods(Paths.currentModDirectory + '/custom_events/')];
+		for (i in 0...directories.length) {
+			var directory:String =  directories[i];
+			if(FileSystem.exists(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
+					var path = haxe.io.Path.join([directory, file]);
+					if (!FileSystem.isDirectory(path) && file != 'readme.txt' && file.endsWith('.txt')) {
+						var fileToCheck:String = file.substr(0, file.length - 4);
+						if(!eventPushedMap.exists(fileToCheck)) {
+							eventPushedMap.set(fileToCheck, true);
+							eventStuff.push([fileToCheck, File.getContent(path)]);
+						}
+					}
+				}
+			}
+		}
+		eventPushedMap.clear();
+		eventPushedMap = null;
+		#end
 
 		descText = new FlxText(20, 200, 0, eventStuff[0][0]);
 
@@ -614,8 +644,11 @@ class ChartingState extends MusicBeatState
 		eventDropDown = new FlxUIDropDownMenuCustom(20, 50, FlxUIDropDownMenuCustom.makeStrIdLabelArray(leEvents, true), function(pressed:String) {
 			var selectedEvent:Int = Std.parseInt(pressed);
 			descText.text = eventStuff[selectedEvent][1];
-			if(curSelectedNote != null) {
-				curSelectedNote[2] = eventStuff[selectedEvent][0];
+				if (curSelectedNote != null &&  eventStuff != null) {
+				if (curSelectedNote != null && curSelectedNote[2] == null){
+				curSelectedNote[1][curEventSelected][0] = eventStuff[selectedEvent][0];
+					
+				}
 				updateGrid();
 			}
 		});
@@ -630,6 +663,9 @@ class ChartingState extends MusicBeatState
 		tab_group_event.add(text);
 		value2InputText = new FlxUIInputText(20, 150, 100, "");
 		blockPressWhileTypingOn.push(value2InputText);
+
+
+		
 
 		tab_group_event.add(descText);
 		tab_group_event.add(value1InputText);

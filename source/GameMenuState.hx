@@ -216,7 +216,7 @@ class MainMenuState extends MusicBeatState
 		credits.animation.addByPrefix('idle', "storym ", 24);
 		credits.animation.addByPrefix('selected', "storys ", 24);
 		credits.animation.play('idle');
-		credits.scale.set(0.3, 0.3);
+		credits.scale.set(0.25, 0.25);
 		credits.updateHitbox();
 		credits.scrollFactor.set();
 		add(credits);
@@ -356,7 +356,7 @@ class MainMenuState extends MusicBeatState
 							FlxG.mouse.visible = false;
 							FlxG.mouse.enabled = false;
 							
-							MusicBeatState.switchState(new CreditsState());
+							MusicBeatState.switchState(new OptionsState());
 						
 						}
 					}

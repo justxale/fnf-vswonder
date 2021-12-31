@@ -1950,8 +1950,7 @@ class PlayState extends MusicBeatState
 			#end
 		}
 		#end
-
-		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
+	        iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
 		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
 
 		iconP1.updateHitbox();
@@ -2970,16 +2969,7 @@ class PlayState extends MusicBeatState
 			songScore += score;
 			songHits++;
 			RecalculateRating();
-			if(scoreTxtTween != null) {
-				scoreTxtTween.cancel();
-			}
-			scoreTxt.scale.x = 1.1;
-			scoreTxt.scale.y = 1.1;
-			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
-				onComplete: function(twn:FlxTween) {
-					scoreTxtTween = null;
-				}
-			});
+			
 		}
 
 		var pixelShitPart1:String = "";
@@ -3676,24 +3666,18 @@ class PlayState extends MusicBeatState
 		{
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
+		
+		iconP1.scale.set(1.2, 1.2);
+		iconP2.scale.set(1.2, 1.2);
+	
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
 
-		if (camZooming && curBeat % 2 == 1)
-		    {
-				
-		    iconP2.scale.x += 0.15;
-		      iconP2.scale.y += 0.15;
-              iconP1.scale.x += 0.15;
-		      iconP1.scale.y += 0.15;
-		    }
-		if (camZooming && curBeat % 2 == 0)
-			{
-				
-			   iconP1.scale.x += 0.3;
-		       iconP1.scale.y += 0.3;
-			   iconP2.scale.x += 0.3;
-		       iconP2.scale.y += 0.3;
-
-            }
+		if (curBeat % 2 == 1){
+			scoreTxt.scale.x = 1;
+			scoreTxt.scale.y = 1;
+			FlxTween.tween(scoreTxt.scale, {x: 1.15, y: 1.15}, 0.3, {ease: FlxEase.quadOut, type: BACKWARD});
+		}
 
 		if (SONG.notes[Math.floor(curStep / 16)] != null)
 		{

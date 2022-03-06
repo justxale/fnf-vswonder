@@ -356,7 +356,7 @@ class MainMenuState extends MusicBeatState
 							FlxG.mouse.visible = false;
 							FlxG.mouse.enabled = false;
 							
-							MusicBeatState.switchState(new OptionsState());
+							MusicBeatState.switchState(new CreditsState());
 						
 						}
 					}

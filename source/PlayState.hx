@@ -1110,17 +1110,6 @@ class PlayState extends MusicBeatState
 		judgementCounter.text = 'Max Combo: ${maxCombo}\nSicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nHealth: ${Std.string(Math.floor(Std.parseFloat(Std.string((maxHealthProb) / 2))))} %\n game not read that text';
         judgementCounter.visible = ClientPrefs.showjud;
 		add(judgementCounter);
- 
-        /*healthThing = new FlxText(20,judgementCounter.y + 95, 0,'100%', 20);
-        healthThing.borderSize = 2;
-		healthThing.borderQuality = 2;
-		healthThing.cameras = [camHUD];
-		healthThing.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
-		healthThing.scrollFactor.set();
-		healthThing.visible = !ClientPrefs.hideHud;
-        #if debug //for debug lol - Snake || I think it will be better if we add this to main game - Xale
-        add(healthThing);
-        #end*/
                 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "", 32);
 		botplayTxt.text = "BOTPLAY";
@@ -2518,11 +2507,10 @@ class PlayState extends MusicBeatState
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
 
-		
-               if(healthBar.percent < 30)
+        if(healthBar.percent < 30)
 			FlxTween.tween(badLoseVin, {alpha: 1}, 1, {ease: FlxEase.linear});
-               else
-                        FlxTween.tween(badLoseVin, {alpha: 0}, 1, {ease: FlxEase.linear});
+        else
+            FlxTween.tween(badLoseVin, {alpha: 0}, 1, {ease: FlxEase.linear});
              
         if (startingSong)
 		{
@@ -2721,9 +2709,6 @@ class PlayState extends MusicBeatState
 					}
 				}
 
-				// WIP interpolation shit? Need to fix the pause issue
-				// daNote.y = (strumLine.y - (songTime - daNote.strumTime) * (0.45 * songSpeed));
-
 				var doKill:Bool = daNote.y < -daNote.height;
 				if(ClientPrefs.downScroll) doKill = daNote.y > FlxG.height;
 
@@ -2903,7 +2888,6 @@ function pauseState()
 
 	public function getControl(key:String) {
 		var pressed:Bool = Reflect.getProperty(controls, key);
-		//trace('Control result: ' + pressed);
 		return pressed;
 	}
 
@@ -4001,7 +3985,7 @@ function pauseState()
 			if(note.gfNote) {
 				char = gf;
 			}
-                /*        
+                   
             if(SONG.notes[Math.floor(curStep / 16)].mustHitSection == false)
 				{
                     if (!dad.stunned)
@@ -4059,7 +4043,7 @@ function pauseState()
 							}                   
 						}
 				} 
-                      */
+            
             char.playAnim(animToPlay, true);
 			char.holdTimer = 0;
 		}
@@ -4150,6 +4134,63 @@ function pauseState()
 					} else {
 						boyfriend.playAnim(animToPlay + daAlt, true);
 						boyfriend.holdTimer = 0;
+
+						if(SONG.notes[Math.floor(curStep / 16)].mustHitSection == true)
+							{ //work very bad
+								if (!boyfriend.stunned)
+								{
+									 cammoveoffest = 30;
+									   
+									switch(Std.int(Math.abs(note.noteData)))
+									{
+										case 2:
+											camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+											camFollow.x += boyfriend.cameraPosition[0];
+											camFollow.y += boyfriend.cameraPosition[1] - cammoveoffest;
+									
+											if(ClientPrefs.cameramove)
+												{ 
+													   camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+													camFollow.x += boyfriend.cameraPosition[0];
+													camFollow.y += boyfriend.cameraPosition[1];								
+												}
+										case 3:							
+											camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+											camFollow.x += boyfriend.cameraPosition[0] + cammoveoffest;
+											camFollow.y += boyfriend.cameraPosition[1];
+											if(ClientPrefs.cameramove)
+											{
+												   camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+												camFollow.x += boyfriend.cameraPosition[0];
+												camFollow.y += boyfriend.cameraPosition[1];
+											}
+																 
+										case 1:
+											camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+											camFollow.x += boyfriend.cameraPosition[0];
+											camFollow.y += boyfriend.cameraPosition[1] + cammoveoffest;
+														 
+											if(ClientPrefs.cameramove)
+											{
+												camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+												camFollow.x += boyfriend.cameraPosition[0];
+												camFollow.y += boyfriend.cameraPosition[1];
+											}
+																	 
+										case 0:
+											camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+											camFollow.x += boyfriend.cameraPosition[0] - cammoveoffest;
+											camFollow.y += boyfriend.cameraPosition[1];
+																 
+											if(ClientPrefs.cameramove)
+											{
+												camFollow.set(boyfriend.getMidpoint().x - 100 + bfcamoffsetx, boyfriend.getMidpoint().y - 100 + bfcamoffsety);
+												camFollow.x += boyfriend.cameraPosition[0];
+												camFollow.y += boyfriend.cameraPosition[1];
+											}
+									}                        
+								}
+							}
 					}
 				//}
 				if(note.noteType == 'Hey!') {

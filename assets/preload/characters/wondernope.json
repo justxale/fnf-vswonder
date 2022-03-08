@@ -1,0 +1,73 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle bruh"
+		},
+		{
+			"offsets": [
+				-9,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Left Lol"
+		},
+		{
+			"offsets": [
+				26,
+				-50
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Right Pose"
+		},
+		{
+			"offsets": [
+				86,
+				30
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up Note"
+		},
+		{
+			"offsets": [
+				50,
+				-90
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down note"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/WonderNope",
+	"position": [
+		0,
+		80
+	],
+	"healthicon": "wondernope",
+	"flip_x": false,
+	"camera_position": [
+		-40,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

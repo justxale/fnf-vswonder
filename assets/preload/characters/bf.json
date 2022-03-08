@@ -6,6 +6,17 @@
 				-5,
 				0
 			],
+			"anim": "Dodge",
+			"fps": 12,
+			"name": "boyfriend dodge",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-5,
+				0
+			],
 			"anim": "idle",
 			"fps": 24,
 			"name": "BF idle dance",
@@ -14,7 +25,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				5,
+				12,
 				-6
 			],
 			"anim": "singLEFT",
@@ -47,7 +58,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-48,
+				-38,
 				-7
 			],
 			"anim": "singRIGHT",
@@ -58,8 +69,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				7,
-				19
+				12,
+				24
 			],
 			"anim": "singLEFTmiss",
 			"fps": 24,
@@ -69,7 +80,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-15,
+				-11,
 				-19
 			],
 			"anim": "singDOWNmiss",
@@ -80,7 +91,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				-36,
+				-29,
 				27
 			],
 			"anim": "singUPmiss",
@@ -91,8 +102,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				-44,
-				22
+				-30,
+				21
 			],
 			"anim": "singRIGHTmiss",
 			"fps": 24,
@@ -164,39 +175,6 @@
 			"fps": 24,
 			"name": "BF Dead confirm",
 			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-10,
-				-16
-			],
-			"anim": "dodge",
-			"fps": 24,
-			"name": "boyfriend dodge",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				294,
-				267
-			],
-			"anim": "attack",
-			"fps": 24,
-			"name": "boyfriend attack",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-40,
-				-40
-			],
-			"anim": "pre-attack",
-			"fps": 24,
-			"name": "bf pre attack",
-			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -207,16 +185,6 @@
 	],
 	"healthicon": "bf",
 	"flip_x": true,
-	"healthbar_colors": [
-		49,
-		176,
-		209
-	],
-        "healthbar_colors2": [
-		49,
-		176,
-		209
-	],
 	"camera_position": [
 		0,
 		0

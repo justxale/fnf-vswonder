@@ -143,6 +143,8 @@ class CoolUtil
 			{
 				case 'alteratrocity' | 'fluffy-revenge':
                     artistPrefix = 'XaleTheCat';
+				case 'my goal' | 'key point' | 'guests':
+					artistPrefix = 'Yamahearted';			
                 default:
 				    artistPrefix = 'Kawai Sprite';
 			}	

@@ -1,0 +1,10 @@
+{
+	"confirm_anim": "Idle menu",
+	"idle_anim": "Idle menu",
+	"position": [
+		10,
+		4
+	],
+	"scale": 1.05,
+	"image": "WonderNope_Menu"
+}

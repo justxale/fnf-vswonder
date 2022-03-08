@@ -1,5 +1,5 @@
 {
-	"storyName": "Daddy Dearest",
+	"storyName": "WonderNope",
 	"hideFreeplay": false,
 	"weekBackground": "stage",
 	"weekBefore": "tutorial",
@@ -11,7 +11,7 @@
 	],
 	"songs": [
 		[
-			"Bopeebo",
+			"Guests",
 			"dad",
 			[
 				186,
@@ -20,7 +20,7 @@
 			]
 		],
 		[
-			"Fresh",
+			"My Goal",
 			"dad",
 			[
 				186,
@@ -29,7 +29,7 @@
 			]
 		],
 		[
-			"Dad Battle",
+			"Key Point",
 			"dad",
 			[
 				186,

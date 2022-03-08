@@ -1,6 +1,0 @@
-wn:bf
-:0:gf:0.05:0:From now on, be on guard, Player.
-:0:gf:0.05:0:Your spacetime manipulations won't stay\nunnoticed. 
-:0:gf:0.05:0:Now everyone knows that you want to break\nthrough the edge. 
-:0:gf:0.05:0:Also the fact that you have tools required\nto do that.
-:0:gf:0.05:0:Good luck.

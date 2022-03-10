@@ -7,12 +7,10 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxTimer;
 import flixel.system.FlxSound;
+import Data;
 
 using StringTools;
 
-/**
- * Loosley based on FlxTypeText lolol
- */
 class Alphabet extends FlxSpriteGroup
 {
 	public var delay:Float = 0.05;
@@ -30,6 +28,7 @@ class Alphabet extends FlxSpriteGroup
 	public var text:String = "";
 
 	var _finalText:String = "";
+	var _curText:String = "";
 	var yMulti:Float = 1;
 
 	// custom shit
@@ -39,7 +38,7 @@ class Alphabet extends FlxSpriteGroup
 
 	var splitWords:Array<String> = [];
 
-	public var isBold:Bool = false;
+	var isBold:Bool = false;
 	public var lettersArray:Array<AlphaCharacter> = [];
 
 	public var finishedText:Bool = false;
@@ -81,6 +80,7 @@ class Alphabet extends FlxSpriteGroup
 		}
 		lettersArray = [];
 		splitWords = [];
+		_curText = "";
 		loopNum = 0;
 		xPos = 0;
 		curRow = 0;
@@ -117,11 +117,7 @@ class Alphabet extends FlxSpriteGroup
 		var xPos:Float = 0;
 		for (character in splitWords)
 		{
-			// if (character.fastCodeAt() == " ")
-			// {
-			// }
-
-			var spaceChar:Bool = (character == " " || (isBold && character == "_"));
+			var spaceChar:Bool = (character == " " || character == "-" || character == "_");
 			if (spaceChar)
 			{
 				consecutiveSpaces++;
@@ -143,7 +139,6 @@ class Alphabet extends FlxSpriteGroup
 				}
 				consecutiveSpaces = 0;
 
-				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 0, textSize);
 
 				if (isBold)
@@ -154,7 +149,8 @@ class Alphabet extends FlxSpriteGroup
 					}
 					else if (isSymbol)
 					{
-						letter.createBoldSymbol(character);
+						if(character != '-')
+							letter.createBoldSymbol(character);
 					}
 					else
 					{
@@ -182,8 +178,6 @@ class Alphabet extends FlxSpriteGroup
 
 				lastSprite = letter;
 			}
-
-			// loopNum += 1;
 		}
 	}
 
@@ -194,7 +188,7 @@ class Alphabet extends FlxSpriteGroup
 
 	var loopNum:Int = 0;
 	var xPos:Float = 0;
-	public var curRow:Int = 0;
+	var curRow:Int = 0;
 	var dialogueSound:FlxSound = null;
 	var consecutiveSpaces:Int = 0;
 
@@ -204,12 +198,11 @@ class Alphabet extends FlxSpriteGroup
 		_finalText = text;
 		doSplitWords();
 
-		// trace(arrayShit);
-
 		if(speed <= 0) {
-			while(!finishedText) { 
+			while(loopNum < splitWords.length) {
 				timerCheck();
 			}
+			finishedText = true;
 			if(dialogueSound != null) dialogueSound.stop();
 			dialogueSound = FlxG.sound.play(Paths.sound('dialogue'));
 		} else {
@@ -221,28 +214,19 @@ class Alphabet extends FlxSpriteGroup
 		}
 	}
 
-	var LONG_TEXT_ADD:Float = -24; //text is over 2 rows long, make it go up a bit
 	public function timerCheck(?tmr:FlxTimer = null) {
-		var autoBreak:Bool = false;
-		if ((loopNum <= splitWords.length - 2 && splitWords[loopNum] == "\\" && splitWords[loopNum+1] == "n") ||
-			((autoBreak = true) && xPos >= FlxG.width * 0.65 && splitWords[loopNum] == ' ' ))
+		if (loopNum <= splitWords.length - 2 && splitWords[loopNum] == "\\" && splitWords[loopNum+1] == "n")
 		{
-			if(autoBreak) {
-				if(tmr != null) tmr.loops -= 1;
-				loopNum += 1;
-			} else {
-				if(tmr != null) tmr.loops -= 2;
-				loopNum += 2;
-			}
+			if(tmr != null) tmr.loops -= 2;
+			loopNum += 2;
 			yMulti += 1;
 			xPosResetted = true;
 			xPos = 0;
 			curRow += 1;
-			if(curRow == 2) y += LONG_TEXT_ADD;
 		}
 
-		if(loopNum <= splitWords.length && splitWords[loopNum] != null) {
-			var spaceChar:Bool = (splitWords[loopNum] == " " || (isBold && splitWords[loopNum] == "_"));
+		if(loopNum <= splitWords.length) {
+			var spaceChar:Bool = (splitWords[loopNum] == " " || splitWords[loopNum] == "-" || splitWords[loopNum] == "_");
 			if (spaceChar)
 			{
 				consecutiveSpaces++;
@@ -258,8 +242,6 @@ class Alphabet extends FlxSpriteGroup
 				{
 					lastSprite.updateHitbox();
 					xPos += lastSprite.width + 3;
-					// if (isBold)
-					// xPos -= 80;
 				}
 				else
 				{
@@ -272,7 +254,6 @@ class Alphabet extends FlxSpriteGroup
 				}
 				consecutiveSpaces = 0;
 
-				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 55 * yMulti, textSize);
 				letter.row = curRow;
 				if (isBold)
@@ -318,13 +299,11 @@ class Alphabet extends FlxSpriteGroup
 			}
 		}
 
-		loopNum++;
-		if(loopNum >= splitWords.length) {
-			if(tmr != null) {
-				typeTimer = null;
-				tmr.cancel();
-				tmr.destroy();
-			}
+		loopNum += 1;
+		if(loopNum >= splitWords.length && tmr != null) {
+			typeTimer = null;
+			tmr.cancel();
+			tmr.destroy();
 			finishedText = true;
 		}
 	}
@@ -358,6 +337,8 @@ class Alphabet extends FlxSpriteGroup
 
 class AlphaCharacter extends FlxSprite
 {
+	//public static var rualphabet:String = "абвгдежзиклмнопрстухцчшщъыьэюя";
+
 	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyz";
 
 	public static var numbers:String = "1234567890";
@@ -420,8 +401,8 @@ class AlphaCharacter extends FlxSprite
 			case "'":
 				y -= 20 * textSize;
 			case '-':
-				//x -= 35 - (90 * (1.0 - textSize));
-				y += 20 * textSize;
+				x -= 35 - (90 * (1.0 - textSize));
+				y -= 16 * textSize;
 			case '(':
 				x -= 65 * textSize;
 				y -= 5 * textSize;
@@ -430,10 +411,6 @@ class AlphaCharacter extends FlxSprite
 				x -= 20 / textSize;
 				y -= 5 * textSize;
 				offset.x = 12 * textSize;
-			case '.':
-				y += 45 * textSize;
-				x += 5 * textSize;
-				offset.x += 3 * textSize;
 		}
 	}
 
@@ -495,7 +472,7 @@ class AlphaCharacter extends FlxSprite
 			case "'":
 				y -= 20;
 			case '-':
-				//x -= 35 - (90 * (1.0 - textSize));
+				x -= 35 - (90 * (1.0 - textSize));
 				y -= 16;
 		}
 	}

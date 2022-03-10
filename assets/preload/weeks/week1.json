@@ -1,0 +1,43 @@
+{
+	"storyName": "WonderNope",
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"weekBefore": "tutorial",
+	"startUnlocked": true,
+	"weekCharacters": [
+		"dad",
+		"gf",
+		"bf"
+	],
+	"songs": [
+		[
+			"Guests",
+			"dad",
+			[
+				186,
+				113,
+				253
+			]
+		],
+		[
+			"My Goal",
+			"dad",
+			[
+				186,
+				113,
+				253
+			]
+		],
+		[
+			"Key Point",
+			"dad",
+			[
+				186,
+				113,
+				253
+			]
+		]
+	],
+	"hideStoryMode": false,
+	"weekName": "Week 1"
+}

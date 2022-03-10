@@ -8,22 +8,26 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import lime.app.Application;
-import lime.ui.WindowAttributes;
-import MusicBeatState;
+import Data;
+import VideoState;
+
+#if cpp
+import webm.WebmPlayer;
+#end
 
 class Main extends Sprite
 {
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
+
+	var initialState:Class<FlxState> = TitleState;
+
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPS;
-        public static var memoryCounter:MemoryCounter;
-	public static var appTitle:String = 'Friday Night Funkin: Grafex Mod';
+	public static var appTitle:String = 'vs WonderNope';
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -39,7 +43,6 @@ class Main extends Sprite
 		if (stage != null)
 		{
 			init();
-			
 		}
 		else
 		{
@@ -71,12 +74,45 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-		#if !debug
-		initialState = TitleState;
+		#if debug
+            initialState = TitleState;
+        #end
+    
+        #if !debug
+		if(EngineData.isCachingEnabled)
+			initialState = Caching;
+		else
+			initialState = TitleState;
+        #end
+
+		
+
+		#if !mobile
+		addChild(new FPS(10, 3, 0xFFFFFF));
 		#end
 
-		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+
+		var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
+
+		#if web
+		var str1:String = "HTML CRAP";
+		var vHandler = new VideoHandler();
+		vHandler.init1();
+		vHandler.video.name = str1;
+		addChild(vHandler.video);
+		vHandler.init2();
+		GlobalVideo.setVid(vHandler);
+		vHandler.source(ourSource);
+		#elseif desktop
+		var str1:String = "WEBM SHIT"; 
+		var webmHandle = new WebmHandler();
+		webmHandle.source(ourSource);
+		webmHandle.makePlayer();
+		webmHandle.webm.name = str1;
+		addChild(webmHandle.webm);
+		GlobalVideo.setWebm(webmHandle);
+		#end
 
 		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
@@ -84,18 +120,12 @@ class Main extends Sprite
 		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
-                
-		memoryCounter = new MemoryCounter(10, 3, 0xffffff);
-		addChild(memoryCounter);
-                if(memoryCounter != null) {
-			memoryCounter.visible = ClientPrefs.showMEM;
-		}
 		#end
 
-
 		#if html5
-		//FlxG.autoPause = false;
+		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
 	}
 }
+

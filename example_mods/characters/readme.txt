@@ -1,1 +1,1 @@
-Put your custom character .json files here!
+put your custom character .json files here!

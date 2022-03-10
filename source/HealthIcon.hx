@@ -2,6 +2,8 @@ package;
 
 import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
+import Data;
+import flixel.FlxG;
 
 using StringTools;
 
@@ -10,6 +12,9 @@ class HealthIcon extends FlxSprite
 	public var sprTracker:FlxSprite;
 	private var isPlayer:Bool = false;
 	private var char:String = '';
+
+	// The following icons have antialiasing forced to be disabled
+	var noAntialiasing:Array<String> = ['bf-pixel', 'senpai', 'spirit'];
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -27,27 +32,33 @@ class HealthIcon extends FlxSprite
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
 	}
 
-	private var iconOffsets:Array<Float> = [0, 0];
-	public function changeIcon(char:String) {
-		if(this.char != char) {
-			var name:String = 'icons/' + char;
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Older versions of psych engine's support
-			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-noone'; //Prevents crash from missing icon
+	public function changeIcon(char:String)
+	{
+		if(this.char != char)
+		{
+			var name:String = 'icons/icon-' + char;
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-face'; //Prevents crash from missing icon
 			var file:Dynamic = Paths.image(name);
 
 			loadGraphic(file, true, 150, 150);
-			animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			animation.add(char, [0, 1, 2, 3], 0, false, isPlayer);
 			animation.play(char);
 			this.char = char;
 
 			antialiasing = ClientPrefs.globalAntialiasing;
-			if(char.endsWith('-pixel')) {
-				antialiasing = false;
+			for (i in 0...noAntialiasing.length)
+			{
+				if(char == noAntialiasing[i])
+				{
+					antialiasing = false;
+					break;
+				}
 			}
 		}
 	}
 
-	public function getCharacter():String {
+	public function getCharacter():String
+	{
 		return char;
 	}
 }

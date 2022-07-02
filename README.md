@@ -10,7 +10,7 @@
 
 * Bluzck - Art Helper
 * PurpleSnake - Code Helper
-* 
+
 ### Grafex Mod aka Psych Graphic Rework:
 * Xale - Lead Coding, Artist
 * PurpleSnake - Second Coder
